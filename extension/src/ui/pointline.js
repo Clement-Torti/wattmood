@@ -13,15 +13,22 @@
   IV.skinThumb = (ed, size = 22) =>
     `<svg viewBox="0 0 100 100" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="color:${ed.moods.midnight.accent2};--iv-accent:${ed.moods.midnight.accent}" aria-hidden="true">${inner(ed.emblem)}</svg>`;
 
+  /** The user's own pledges count straight away (transparent: no "in review" state shown). */
+  function shown(snap) {
+    // the number includes the user's own (unverified) pledge; skins still unlock only on the verified total
+    return { ...snap, total: snap.total + (snap.pending || 0), pending: 0 };
+  }
+
   /**
    * Expanded view: total + a "book ladder" — one row per book, in goal order, so every threshold says
    * which book it unlocks (title in the skin's own font, author, goal, state).
    */
   IV.renderPointline = (snap) => {
+    snap = shown(snap);
     const next = snap.next;
     const prev = [...snap.skins].reverse().find((s) => s.global);
     const from = prev ? prev.goal : 0;
-    const pct = next ? Math.min(100, ((snap.total - from) / Math.max(1, next.goal - from)) * 100) : 100;
+    const pct = next ? Math.max(0, Math.min(100, ((snap.total - from) / Math.max(1, next.goal - from)) * 100)) : 100;
     const pendPct = next && snap.pending ? Math.min(100 - pct, (snap.pending / Math.max(1, next.goal - from)) * 100) : 0;
     const nextEd = next ? IV.getEdition(next.id) : null;
     const rows = snap.skins.filter((s) => s.goal > 0).map((s) => {
@@ -47,19 +54,20 @@
           : `<div class="pl-next done">${esc(t('allUnlocked'))}</div>`}
       </div>
       <ol class="pl-ladder">${rows}</ol>
-      ${snap.pending ? `<div class="pl-note">⏳ ${esc(t('reviewNote'))}</div>` : ''}
+      <div class="pl-explain">${esc(t('plExplain'))}</div>
       ${snap.offline ? `<div class="pl-note muted">${esc(t('offline'))}</div>` : ''}`;
   };
 
   /** Compact pill: points + progress toward the next skin. */
   IV.renderPointlinePill = (snap) => {
+    snap = shown(snap);
     const next = snap.next;
     const prev = [...snap.skins].reverse().find((s) => s.global);
     const from = prev ? prev.goal : 0;
-    const pct = next ? Math.min(100, ((snap.total - from) / Math.max(1, next.goal - from)) * 100) : 100;
+    const pct = next ? Math.max(0, Math.min(100, ((snap.total - from) / Math.max(1, next.goal - from)) * 100)) : 100;
     const pendPct = next && snap.pending ? Math.min(100 - pct, (snap.pending / Math.max(1, next.goal - from)) * 100) : 0;
     const ed = next ? IV.getEdition(next.id) : null;
-    return `<span class="pill-txt"><b>${IV.fmtNum(snap.total)}</b><small> pts</small></span>
+    return `<span class="pill-who" title="${esc(t('plExplain'))}">🌍</span><span class="pill-txt"><b>${IV.fmtNum(snap.total)}</b><small> pts ${esc(t('plCommunity'))}</small></span>
       <span class="pill-bar"><i style="width:${pct.toFixed(1)}%"></i>${pendPct ? `<em style="left:${pct.toFixed(1)}%;width:${pendPct.toFixed(1)}%"></em>` : ''}</span>
       ${ed ? `<span class="pill-next" style="font-family:${esc(ed.fonts.display)}">${esc(ed.name)}</span>` : '<span class="pill-next">✦</span>'}`;
   };

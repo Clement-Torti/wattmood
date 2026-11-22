@@ -221,7 +221,9 @@
       this.settings = next;
       const want = this.resolveSkin();
       if (want.id !== this.skin.id && next.enabled) {
-        this.ui.unveil(want, () => this.swapSkin(want, true));
+        // animate only when the user just chose this skin (popup / another tab); otherwise switch quietly
+        if (next.edition !== prev.edition && next.edition === want.id) this.ui.unveil(want, () => this.swapSkin(want, true));
+        else this.swapSkin(want, true);
         return;
       }
       this.refresh(prev);

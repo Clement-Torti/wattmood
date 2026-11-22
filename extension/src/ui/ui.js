@@ -247,7 +247,7 @@
         <div class="ladder"></div>
         <div class="pick-box"></div>
         <div class="code-box"><div>${esc(t('donateCode'))}</div><div class="code-row"><code>${esc(code)}</code><button class="btn ghost small" data-act="copy-code">${esc(t('copy'))}</button></div></div>
-        <div class="d-note">⏳ ${esc(t('reviewNote'))}<br>👪 ${esc(t('donateMinor'))}</div>
+        <div class="d-note">👪 ${esc(t('donateMinor'))}</div>
         <div class="modal-actions"><button class="btn ghost" data-act="modal-close">${esc(t('cancel'))}</button><button class="btn primary" data-act="donate-go">${esc(t('donateGo'))} ↗</button></div>`, 'donate');
       const $ = (sel) => m.querySelector(sel);
       const render = () => {
@@ -292,7 +292,6 @@
           await IV.community.openDonate();
           this.openModal(`<div class="thanks-art">${IV.skinThumb(this.app.skin, 64)}</div><h2>${esc(t('donateThanks'))}</h2>
             <p>${esc(t('donateCode'))}</p><div class="code-row center"><code>${esc(code)}</code></div>
-            <p class="d-note">⏳ ${esc(t('reviewNote'))}</p>
             <div class="modal-actions"><button class="btn primary" data-act="modal-close">${esc(t('close'))}</button></div>`, 'thanks');
           this.app.refreshPoints(false);
         }

@@ -301,3 +301,6 @@
 .pl-rowbar i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: inherit; background: linear-gradient(90deg, var(--b-acc), var(--b-acc2)); }
 .pl-rowbar em { position: absolute; top: 0; bottom: 0; background: repeating-linear-gradient(135deg, #e9b949 0 3px, transparent 3px 6px); }
 .pill-next { max-width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 13px; color: var(--iv-accent2); }
+
+.pl-explain { font-size: 12px; line-height: 1.4; color: var(--iv-muted); margin: 0 2px 12px; }
+.pill-who { font-size: 15px; line-height: 1; }
