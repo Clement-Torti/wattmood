@@ -77,6 +77,7 @@
         <div class="scrim"></div>
         <aside class="panel" aria-label="${esc(t('atelier'))}"></aside>
         <div class="modal-wrap"><div class="modal" role="dialog" aria-modal="true"></div></div>
+        <div class="preview-bar" role="status"><span class="pv-txt"></span><button class="btn primary small" data-act="preview-buy"></button><button class="x" data-act="preview-end" aria-label="${esc(t('close'))}">${ICON.close}</button></div>
         <div class="toast" role="status"></div>`;
       shadow.appendChild(ui);
       this.$ = (sel) => ui.querySelector(sel);
@@ -174,6 +175,7 @@
           <span class="card-art">${ed.emblem || ''}</span>
           <span class="card-body">
             <span class="card-name">${esc(ed.name)}${state ? `<em class="${s.review ? 'review' : ''}">${s.unlocked ? '' : ICON.lock}${esc(state)}</em>` : ''}</span>
+            ${s.unlocked ? '' : `<span class="card-acts"><span class="chip-act try" data-try="${esc(ed.id)}">▶ ${esc(t('tryIt'))}</span><span class="chip-act buy" data-buy="${esc(ed.id)}">${esc(t('orWith', { amount: IV.community.pickPrice().label }))}</span></span>`}
             <span class="card-from">${ed.inspiredBy ? esc(t('inspiredBy', { book: ed.inspiredBy.author })) : esc(ed.tagline || '')}</span>
           </span></button>`;
       }).join('');
@@ -242,17 +244,14 @@
       this.onModalClose = null;
     }
 
-    async openDonate() {
+    async openDonate(opts = {}) {
       const C = IV.CONFIG;
       const code = await IV.community.code();
       const snap = this.snap || (await IV.community.snapshot());
       const locked = snap.skins.filter((x) => !x.unlocked);
-      const lang = navigator.language || '';
-      const byRegion = { MX: 'MXN', AR: 'ARS', CO: 'COP', CL: 'CLP', PE: 'PEN', GB: 'GBP', BR: 'BRL', CA: 'CAD', CH: 'CHF', US: 'USD' };
-      const region = (lang.match(/-([A-Z]{2})$/i) || [])[1];
-      let cur = (region && byRegion[region.toUpperCase()]) || ({ pt: 'BRL', en: 'USD' }[IV.lang()] || 'EUR');
-      let amount = C.CURRENCIES[cur].presets[0]; // 1 € / 1 $ by default
-      let pick = locked.length ? locked[0].id : null;
+      let cur = IV.community.localCurrency();
+      let amount = C.CURRENCIES[cur].presets[opts.pick ? 1 : 0]; // 1 € / 1 $ by default; the 5 € tier when a skin was chosen
+      let pick = (opts.pick && locked.some((x) => x.id === opts.pick) && opts.pick) || (locked.length ? locked[0].id : null);
       const thumb = (id, size) => IV.skinThumb(IV.getEdition(id), size);
       const m = this.openModal(`
         <div class="eyebrow">${esc(t('donate'))}</div><h2>${esc(t('donateTitle'))}</h2>
@@ -271,14 +270,14 @@
         const c = C.CURRENCIES[cur];
         const money = (v) => `${c.symbol}${IV.fmtNum(v)}`;
         const eur = IV.community.toEur(amount, cur);
-        const tier = eur >= C.ALL_SKINS_EUR ? 2 : eur >= C.PICK_ONE_EUR ? 1 : 0;
+        const tier = IV.community.tier(eur);
         $('.amounts').innerHTML = c.presets.map((v) => `<button class="chip${+amount === v ? ' is-on' : ''}" data-amount="${v}">${money(v)}</button>`).join('');
         if (document.activeElement !== $('.amount') || +$('.amount').value !== +amount) $('.amount').value = amount;
         $('.currency').value = cur;
         const steps = [
           { min: c.presets[0], extra: '' },
-          { min: Math.ceil(C.PICK_ONE_EUR / c.rate), extra: t('giftOne') },
-          { min: Math.ceil(C.ALL_SKINS_EUR / c.rate), extra: t('giftAll') },
+          { min: c.presets[1], extra: t('giftOne') },
+          { min: c.presets[2], extra: t('giftAll') },
         ];
         $('.ladder').innerHTML = steps.map((st, i) => `<button class="step${i === tier ? ' is-on' : ''}${i < tier ? ' is-done' : ''}" data-amount="${st.min}">
           <b>${money(st.min)}${i ? '+' : ''}</b><span>${esc(t('giftPoints', { n: IV.fmtNum(IV.community.pointsFor(i === tier ? amount : st.min, cur)) }))}</span>${st.extra ? `<em>${esc(st.extra)}</em>` : ''}</button>`).join('');
@@ -305,7 +304,7 @@
         if (e.target.closest('[data-act="donate-go"]')) {
           try { await navigator.clipboard.writeText(code); } catch (_) { /* ignore */ }
           const eur = IV.community.toEur(amount, cur);
-          await IV.community.pledge({ amount, currency: cur, pick: eur >= C.PICK_ONE_EUR && eur < C.ALL_SKINS_EUR ? pick : null });
+          await IV.community.pledge({ amount, currency: cur, pick: IV.community.tier(eur) === 1 ? pick : null });
           await IV.community.openDonate();
           this.openModal(`<div class="thanks-art">${IV.skinThumb(this.app.skin, 64)}</div><h2>${esc(t('donateThanks'))}</h2>
             <p>${esc(t('donateCode'))}</p><div class="code-row center"><code>${esc(code)}</code></div>
@@ -450,6 +449,16 @@
       veil.remove();
     }
 
+    /** Countdown bar while a locked skin is being tried. */
+    setPreview(p) {
+      const bar = this.$('.preview-bar');
+      if (!p) { bar.classList.remove('is-on'); return; }
+      const ed = IV.getEdition(p.id);
+      bar.querySelector('.pv-txt').textContent = t('previewing', { skin: ed.name, s: Math.max(0, Math.ceil((p.until - Date.now()) / 1000)) });
+      bar.querySelector('[data-act="preview-buy"]').textContent = t('orWith', { amount: IV.community.pickPrice().label });
+      bar.classList.add('is-on');
+    }
+
     toast(msg) {
       const el = this.$('.toast');
       el.textContent = msg;
@@ -462,9 +471,15 @@
     bind() {
       const app = this.app;
       this.ui.addEventListener('click', async (e) => {
+        const tryIt = e.target.closest('[data-try]');
+        if (tryIt) return app.preview(tryIt.dataset.try);
+        const buy = e.target.closest('[data-buy]');
+        if (buy) return this.openDonate({ pick: buy.dataset.buy });
+        if (e.target.closest('[data-act="preview-end"]')) return app.endPreview();
+        if (e.target.closest('[data-act="preview-buy"]')) return this.openDonate({ pick: app.previewing && app.previewing.id });
         const card = e.target.closest('.card[data-skin]');
         if (card) {
-          if (card.classList.contains('is-locked')) { this.openDonate(); return; }
+          if (card.classList.contains('is-locked')) { this.openDonate({ pick: card.dataset.skin }); return; }
           return app.setSkin(card.dataset.skin);
         }
         const mood = e.target.closest('.mood');

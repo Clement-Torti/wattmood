@@ -16,11 +16,13 @@
     ALL_SKINS_EUR: 10, // donation ≥ this unlocks every skin for the donor
     REFRESH_MIN: 20, // how often the points line is refreshed
 
-    // presets[0] ≈ 1 € / 1 $ is the default; the next ones reach the 5 € (pick a skin) and 10 € (all skins) tiers.
+    // presets[0] ≈ 1 € / 1 $ is the default; presets[1] / presets[2] are the round local amounts for the
+    // 5 € (pick a skin) and 10 € (all skins) tiers — they count even if slightly below (TIER_TOLERANCE).
+    TIER_TOLERANCE: 0.9,
     // Approximate value of 1 unit in EUR (for converting pledges into points; donations are verified by hand).
     CURRENCIES: {
       EUR: { rate: 1, symbol: '€', presets: [1, 5, 10, 20] },
-      USD: { rate: 0.92, symbol: '$', presets: [1, 6, 11, 22] },
+      USD: { rate: 0.92, symbol: '$', presets: [1, 5, 10, 20] },
       GBP: { rate: 1.17, symbol: '£', presets: [1, 5, 9, 18] },
       BRL: { rate: 0.17, symbol: 'R$', presets: [6, 30, 60, 120] },
       MXN: { rate: 0.05, symbol: 'MX$', presets: [20, 100, 200, 400] },

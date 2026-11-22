@@ -315,3 +315,18 @@
 .story-box b { font: 700 13px/1.2 system-ui, sans-serif; }
 .story-box .d-note { margin: 4px 0 0; }
 .share-link { font-size: 12px !important; letter-spacing: 0 !important; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; min-width: 0; }
+
+/* locked skin: try / buy */
+.card-acts { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
+.chip-act { display: inline-flex; align-items: center; gap: 4px; padding: 5px 10px; border-radius: 999px; font: 700 11.5px/1 system-ui, sans-serif; cursor: pointer; transition: transform .15s, background .2s; }
+.chip-act:hover { transform: translateY(-1px); }
+.chip-act.try { background: color-mix(in srgb, var(--c-acc2) 22%, transparent); color: var(--c-text); border: 1px solid color-mix(in srgb, var(--c-acc2) 45%, transparent); }
+.chip-act.buy { background: var(--c-acc); color: #fff; }
+.card.is-locked .card-acts { filter: none; }
+.card.is-locked:has(.card-acts) { filter: none; }
+/* preview countdown */
+.preview-bar { position: fixed; top: 14px; left: 50%; z-index: 7; display: flex; align-items: center; gap: 10px; padding: 6px 6px 6px 16px; border-radius: 999px;
+  background: var(--iv-surface); color: var(--iv-text); border: 1px solid var(--iv-accent2); box-shadow: 0 14px 40px -14px rgba(0,0,0,.6);
+  font: 600 13px/1 system-ui, sans-serif; transform: translate(-50%, -140%); opacity: 0; transition: transform .4s var(--iv-ease), opacity .3s; }
+.preview-bar.is-on { transform: translateX(-50%); opacity: 1; }
+.preview-bar .x { width: 28px; height: 28px; }

@@ -10,6 +10,7 @@
   const IV = globalThis.WattMood;
   if (window.top !== window) return;
   const t = (k, v) => IV.t(k, v);
+  const PREVIEW_S = 60;
 
   /* 1 — paint before Wattpad's first frame. The page content waits under the skin's background (.wm-pending)
          until the colour pass has tagged it, so Wattpad's white never shows. */
@@ -86,7 +87,7 @@
 
     paint() {
       IV.paint(this.skin, this.settings, !!this.settings.enabled);
-      IV.boot.write(this.settings, this.skin.id);
+      IV.boot.write(this.settings, this.previewing ? this.previewing.prev.id : this.skin.id);
     }
 
     renderAtmosphere() {
@@ -116,7 +117,7 @@
       this.snap = await IV.community.snapshot();
       if (this.ui) this.ui.updatePoints(this.snap);
       // a skin can't stay on if it isn't unlocked (e.g. goals were raised in the sheet)
-      if (this.skin && !this.unlocked(this.skin.id)) this.swapSkin(IV.getEdition('classic'), false);
+      if (this.skin && !this.previewing && !this.unlocked(this.skin.id)) this.swapSkin(IV.getEdition('classic'), false);
       const fresh = await IV.community.newlyUnlocked(this.snap);
       if (fresh.length && !this.celebrating && this.ui) {
         this.celebrating = true;
@@ -132,6 +133,7 @@
     /* ---------------------------------------------------------------- */
     async setSkin(id) {
       if (!IV.editions.has(id) || !this.unlocked(id)) return;
+      if (this.previewing) { clearInterval(this.previewTick); this.previewing = null; this.ui.setPreview(null); }
       const ed = IV.getEdition(id);
       this.settings = { ...this.settings, edition: id, enabled: true };
       if (this.meta) this.settings.storyEditions = { ...this.settings.storyEditions, [this.meta.storyId]: id };
@@ -139,6 +141,33 @@
       this.ui.closePanel();
       if (id === this.skin.id && document.documentElement.classList.contains('iv-on')) return;
       await this.ui.unveil(ed, () => this.swapSkin(ed, true));
+    }
+
+    /** Try a locked skin for PREVIEW_S seconds, nothing saved; then the previous skin comes back. */
+    async preview(id) {
+      if (!IV.editions.has(id)) return;
+      const prev = this.previewing ? this.previewing.prev : this.skin;
+      clearInterval(this.previewTick);
+      this.previewing = { id, prev, until: Date.now() + PREVIEW_S * 1000 };
+      this.ui.closePanel();
+      await this.ui.unveil(IV.getEdition(id), () => this.swapSkin(IV.getEdition(id), true));
+      if (!this.previewing || this.previewing.id !== id) return;
+      this.ui.setPreview(this.previewing);
+      this.previewTick = setInterval(() => {
+        if (!this.previewing) return clearInterval(this.previewTick);
+        if (Date.now() >= this.previewing.until) this.endPreview(true);
+        else this.ui.setPreview(this.previewing);
+      }, 1000);
+    }
+
+    endPreview(timeUp) {
+      if (!this.previewing) return;
+      const prev = this.previewing.prev;
+      clearInterval(this.previewTick);
+      this.previewing = null;
+      this.ui.setPreview(null);
+      this.ui.crossfade(() => this.swapSkin(this.unlocked(prev.id) ? prev : IV.getEdition('classic'), true));
+      if (timeUp) this.ui.toast(t('previewEnd'));
     }
 
     swapSkin(ed, keepSettings) {

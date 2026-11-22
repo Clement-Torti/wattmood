@@ -131,6 +131,23 @@
       return 'counted';
     },
 
+    /** 0 = points only · 1 = one skin of your choice · 2 = every skin (round local amounts count, e.g. $5). */
+    tier(eur) {
+      const k = C().TIER_TOLERANCE || 1;
+      return eur >= C().ALL_SKINS_EUR * k ? 2 : eur >= C().PICK_ONE_EUR * k ? 1 : 0;
+    },
+    /** The visitor's likely currency (from the browser region / language). */
+    localCurrency() {
+      const byRegion = { MX: 'MXN', AR: 'ARS', CO: 'COP', CL: 'CLP', PE: 'PEN', GB: 'GBP', BR: 'BRL', CA: 'CAD', CH: 'CHF', US: 'USD' };
+      const region = ((navigator.language || '').match(/-([A-Z]{2})$/i) || [])[1];
+      return (region && byRegion[region.toUpperCase()]) || ({ pt: 'BRL', en: 'USD' }[IV.lang()] || 'EUR');
+    },
+    /** e.g. "$5" / "5 €" / "R$30": the local amount that unlocks one skin. */
+    pickPrice() {
+      const cur = community.localCurrency(), c = C().CURRENCIES[cur];
+      return { cur, amount: c.presets[1], label: `${c.symbol}${IV.fmtNum(c.presets[1])}` };
+    },
+
     toEur(amount, currency) {
       const cur = C().CURRENCIES[currency] || C().CURRENCIES.EUR;
       return Math.max(0, Number(amount) || 0) * cur.rate;
@@ -146,8 +163,8 @@
         id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
         amount: Number(amount), currency, eur: Math.round(eur * 100) / 100,
         points: community.pointsFor(amount, currency),
-        coupon: eur >= C().ALL_SKINS_EUR ? 'all' : eur >= C().PICK_ONE_EUR ? 'one' : '',
-        pick: eur >= C().PICK_ONE_EUR && eur < C().ALL_SKINS_EUR ? pick || null : null,
+        coupon: ['', 'one', 'all'][community.tier(eur)],
+        pick: community.tier(eur) === 1 ? pick || null : null,
         at: Date.now(),
       };
       const pledges = await community.pledges();

@@ -7,6 +7,7 @@
 
   const S = {
     en: {
+      tryIt: 'Try', orWith: 'or with {amount}', previewing: 'Trying {skin} · {s}s', previewEnd: 'Preview over — unlock it with the community or with a donation.',
       shareTitle: 'Share WattMood', shareSub: 'Your first share adds +5 points for everyone. Your link carries your code.', shareMore: 'More…', shareCopy: 'Copy link', shareStory: 'Story image', shareStoryHint: 'For TikTok & Instagram: download a vertical image in your skin, then post it as a story or video.', shareStoryDone: 'Image downloaded · caption copied — paste it in TikTok / Instagram.', shareCaption: 'I read Wattpad in skins inspired by my favourite books ✨ We unlock a new one together at each community goal. Link in bio 💛', shareIRead: 'I read Wattpad in', shareCommunity: 'community points', shareNext: 'next skin', shareGet: 'Free Chrome extension',
       plCommunity: 'community', plExplain: 'Every reader’s installs, shares and donations add up here. When the total reaches a book, its skin unlocks for everyone.',
       giftTitle: 'What your gift does', giftPoints: '+{n} pts for everyone', giftOne: '+ 1 skin of your choice', giftAll: '+ every skin for you', pickTitle: 'Choose the skin you want', allTitle: 'All these skins will be yours:', pickNote: 'You’ll receive a coupon for it once your donation is verified.',
@@ -49,6 +50,7 @@
       couponSync: 'Your skins follow you on every device where you use Chrome with the same profile — or just enter the coupon again.',
     },
     es: {
+      tryIt: 'Probar', orWith: 'o con {amount}', previewing: 'Probando {skin} · {s} s', previewEnd: 'Fin de la prueba: desbloquéala con la comunidad o con una donación.',
       shareTitle: 'Compartir WattMood', shareSub: 'Tu primera vez suma +5 puntos para todos. Tu enlace lleva tu código.', shareMore: 'Más…', shareCopy: 'Copiar enlace', shareStory: 'Imagen para historia', shareStoryHint: 'Para TikTok e Instagram: descarga una imagen vertical con tu skin y publícala como historia o vídeo.', shareStoryDone: 'Imagen descargada · texto copiado: pégalo en TikTok / Instagram.', shareCaption: 'Leo Wattpad con skins inspiradas en mis libros favoritos ✨ Desbloqueamos una nueva juntos en cada meta de la comunidad. Link en mi bio 💛', shareIRead: 'Leo Wattpad con', shareCommunity: 'puntos de la comunidad', shareNext: 'siguiente skin', shareGet: 'Extensión gratis para Chrome',
       plCommunity: 'comunidad', plExplain: 'Aquí se suman las instalaciones, lo que se comparte y las donaciones de todos los lectores. Cuando el total llega a un libro, su skin se desbloquea para todos.',
       giftTitle: 'Lo que hace tu donación', giftPoints: '+{n} pts para todos', giftOne: '+ 1 skin a tu elección', giftAll: '+ todas las skins para ti', pickTitle: 'Elige la skin que quieres', allTitle: 'Todas estas skins serán tuyas:', pickNote: 'Recibirás un cupón para ella cuando verifiquemos tu donación.',
@@ -91,6 +93,7 @@
       couponSync: 'Tus skins te siguen en todos los dispositivos donde uses Chrome con el mismo perfil, o vuelve a introducir el cupón.',
     },
     pt: {
+      tryIt: 'Testar', orWith: 'ou com {amount}', previewing: 'Testando {skin} · {s} s', previewEnd: 'Fim do teste — desbloqueie com a comunidade ou com uma doação.',
       shareTitle: 'Compartilhar o WattMood', shareSub: 'Seu primeiro compartilhamento soma +5 pontos para todos. Seu link leva seu código.', shareMore: 'Mais…', shareCopy: 'Copiar link', shareStory: 'Imagem para story', shareStoryHint: 'Para TikTok e Instagram: baixe uma imagem vertical com sua skin e poste como story ou vídeo.', shareStoryDone: 'Imagem baixada · legenda copiada — cole no TikTok / Instagram.', shareCaption: 'Leio o Wattpad com skins inspiradas nos meus livros favoritos ✨ Desbloqueamos uma nova juntos a cada meta da comunidade. Link na bio 💛', shareIRead: 'Leio o Wattpad com', shareCommunity: 'pontos da comunidade', shareNext: 'próxima skin', shareGet: 'Extensão grátis para Chrome',
       plCommunity: 'comunidade', plExplain: 'Aqui se somam as instalações, compartilhamentos e doações de todos os leitores. Quando o total chega a um livro, a skin dele é desbloqueada para todos.',
       giftTitle: 'O que sua doação faz', giftPoints: '+{n} pts para todos', giftOne: '+ 1 skin à sua escolha', giftAll: '+ todas as skins para você', pickTitle: 'Escolha a skin que você quer', allTitle: 'Todas estas skins serão suas:', pickNote: 'Você receberá um cupom para ela quando a doação for verificada.',
@@ -133,6 +136,7 @@
       couponSync: 'Suas skins te acompanham em todo dispositivo onde você usa o Chrome com o mesmo perfil — ou digite o cupom de novo.',
     },
     fr: {
+      tryIt: 'Essayer', orWith: 'ou avec {amount}', previewing: 'Essai de {skin} · {s} s', previewEnd: 'Fin de l’essai — débloque-le avec la communauté ou avec un don.',
       shareTitle: 'Partager WattMood', shareSub: 'Ton premier partage ajoute +5 points pour tout le monde. Ton lien contient ton code.', shareMore: 'Plus…', shareCopy: 'Copier le lien', shareStory: 'Image story', shareStoryHint: 'Pour TikTok et Instagram : télécharge une image verticale dans ton skin, puis publie-la en story ou vidéo.', shareStoryDone: 'Image téléchargée · légende copiée — colle-la dans TikTok / Instagram.', shareCaption: 'Je lis Wattpad avec des skins inspirés de mes livres préférés ✨ On en débloque un nouveau ensemble à chaque objectif de la communauté. Lien en bio 💛', shareIRead: 'Je lis Wattpad avec', shareCommunity: 'points de la communauté', shareNext: 'prochain skin', shareGet: 'Extension Chrome gratuite',
       plCommunity: 'communauté', plExplain: 'Les installations, partages et dons de tous les lecteurs s’additionnent ici. Quand le total atteint un livre, son skin est débloqué pour tout le monde.',
       giftTitle: 'Ce que fait ton don', giftPoints: '+{n} pts pour tous', giftOne: '+ 1 skin de ton choix', giftAll: '+ tous les skins pour toi', pickTitle: 'Choisis le skin que tu veux', allTitle: 'Tous ces skins seront à toi :', pickNote: 'Tu recevras un coupon pour ce skin une fois ton don vérifié.',
