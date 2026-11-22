@@ -35,10 +35,19 @@
       const shadow = host.attachShadow({ mode: 'open' });
       // invisible until its stylesheet has loaded: otherwise the panel, points card and windows show unstyled for a moment
       host.style.visibility = 'hidden';
+      // no transitions while the styles arrive: hidden parts (points card, Atelier, windows) must start hidden,
+      // not fade out from visible
+      const still = document.createElement('style');
+      // …and the parts that start closed are forced closed until then, whatever the timing
+      still.textContent = '*, *::before, *::after { transition: none !important; } .pl-card, .panel, .modal-wrap, .scrim, .toast { opacity: 0 !important; visibility: hidden !important; }';
+      shadow.appendChild(still);
       const link = document.createElement('link');
       link.rel = 'stylesheet';
       link.href = chrome.runtime.getURL('src/ui/ui.css');
-      const reveal = () => { host.style.visibility = ''; };
+      const reveal = () => requestAnimationFrame(() => {
+        host.style.visibility = '';
+        requestAnimationFrame(() => requestAnimationFrame(() => still.remove()));
+      });
       link.addEventListener('load', reveal, { once: true });
       link.addEventListener('error', reveal, { once: true });
       shadow.appendChild(link);

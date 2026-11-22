@@ -43,8 +43,14 @@ window.WMDemo = (() => {
             <div class="dm-half l"></div><div class="dm-half r"></div>
             <div class="dm-mask">${emblem}</div><div class="dm-crack"></div>
           </div>
-          <svg class="dm-cursor" viewBox="0 0 24 24"><path d="M4 2l15 11-7 1 4 8-3 1-4-8-5 5z" fill="#fff" stroke="#111" stroke-width="1.4" stroke-linejoin="round"/></svg>
         </div>
+        <div class="dm-popup">
+          <div class="dm-pop-head"><img src="logo.svg" alt=""><b>WattMood</b></div>
+          <div class="dm-pop-skin basic"><i></i><span>Basic</span></div>
+          <div class="dm-pop-skin pm"><i></i><span>Perfectos Mentirosos</span></div>
+          <div class="dm-pop-skin lock"><i></i><span>A través de mi ventana</span><em>🔒</em></div>
+        </div>
+        <svg class="dm-cursor" viewBox="0 0 24 24"><path d="M4 2l15 11-7 1 4 8-3 1-4-8-5 5z" fill="#fff" stroke="#111" stroke-width="1.4" stroke-linejoin="round"/></svg>
       </div>
       <div class="dm-caption"><span class="dm-step"></span><span class="dm-text"></span></div>`;
     const page = el.querySelector('.dm-page');
@@ -52,9 +58,10 @@ window.WMDemo = (() => {
     page.style.setProperty('--d-display', skin.fonts.display);
     page.style.setProperty('--d-body', "'Crimson Pro', Georgia, serif");
     const cursor = el.querySelector('.dm-cursor');
+    const browser = el.querySelector('.dm-browser');
     const move = (sel, dx = 0, dy = 0) => {
-      const t = sel === 'ext' ? el.querySelector('.dm-ext') : page.querySelector(sel);
-      const pr = page.getBoundingClientRect(), r = t.getBoundingClientRect();
+      const t = el.querySelector(sel);
+      const pr = browser.getBoundingClientRect(), r = t.getBoundingClientRect();
       cursor.style.transform = `translate(${r.left - pr.left + r.width / 2 + dx}px, ${r.top - pr.top + r.height / 2 + dy}px)`;
     };
     const click = () => { cursor.classList.remove('click'); void cursor.offsetWidth; cursor.classList.add('click'); };
@@ -72,9 +79,11 @@ window.WMDemo = (() => {
     async function loop() {
       while (alive) {
         set('plain'); page.classList.remove('spot', 'hl-b', 'hl-pill'); pal('midnight');
-        cursor.style.transition = 'none'; cursor.style.transform = 'translate(70%, 80%)'; void cursor.offsetWidth; cursor.style.transition = '';
+        browser.classList.remove('pop');
+        cursor.style.transition = 'none'; cursor.style.transform = `translate(${browser.clientWidth * 0.6}px, ${browser.clientHeight * 0.7}px)`; void cursor.offsetWidth; cursor.style.transition = '';
         cap(0); await wait(2200);
-        move('ext'); await wait(900); click(); cap(1);
+        cap(1); move('.dm-ext'); await wait(1000); click(); browser.classList.add('pop'); await wait(900);
+        move('.dm-pop-skin.pm', -30, 0); await wait(900); click(); await wait(250); browser.classList.remove('pop');
         set('unveil'); await wait(2300);
         set('skin'); cap(2); await wait(2800);
         page.classList.add('hl-b'); cap(3); await wait(2600); page.classList.remove('hl-b');

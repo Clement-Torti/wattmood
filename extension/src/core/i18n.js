@@ -13,7 +13,7 @@
       donateMinor: 'Under 18? Please ask a parent before donating.',
       feedback: 'Feedback', feedbackTitle: 'Help us make WattMood better', feedbackRate: 'How do you like it?', feedbackHint: 'Ideas, bugs, a book you want as a skin…', feedbackSend: 'Send', feedbackThanks: 'Thank you! We read every message.', feedbackEmpty: 'Write a few words first 🙂',
       tagline: 'Skins & moods for Wattpad',
-      goal: '🌍 Community points — everyone together', points: '{n} pts', next: 'Next: {skin}', toGo: '{n} pts to go', allUnlocked: 'Every skin is unlocked — thank you!',
+      goal: '🌍 Community points', points: '{n} pts', next: 'Next: {skin}', toGo: '{n} pts to go', allUnlocked: 'Every skin is unlocked — thank you!',
       pending: '+{n} in review', reviewNote: 'Donations are checked by hand — it can take a few days.',
       share: 'Share', shareBonus: '+5 pts (1st time)', shareText: 'I read Wattpad with WattMood skins ✨ Help the community unlock the next one:',
       shareCopied: 'Shared — +5 points for the community, thank you!', shareLimit: 'Shared — thank you! (the +5 only counts the first time)',
