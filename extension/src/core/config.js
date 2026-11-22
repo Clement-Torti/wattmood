@@ -5,7 +5,7 @@
   const IV = (globalThis.WattMood = globalThis.WattMood || {});
   IV.CONFIG = {
     // Google Apps Script web app URL (see server/SETUP.md). Empty = offline mode (points stay local).
-    ENDPOINT: '',
+    ENDPOINT: 'https://script.google.com/macros/s/AKfycbxkZBhcxqZRVoQsDGFKT3mdOyKEHD8KLRPB39x2eWzsP_rluj7jbeL4qnVbme0E6oFi4g/exec',
     // Public site (GitHub Pages): landing, share links, privacy policy.
     SITE_URL: 'https://clement-torti.github.io/wattmood/',
     DONATE_URL: 'https://buymeacoffee.com/ctorti',
