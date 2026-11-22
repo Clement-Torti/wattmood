@@ -3,7 +3,7 @@
 WattMood is a Chrome extension that dresses **all of Wattpad** (home, stories, profiles, search, chapters, comments) in a
 **skin**: dark / light / warm "candlelight" moods, typography, an ambient animated background and an opening animation.
 The **Basic** skin is free. **Book skins**, inspired by the most-loved Wattpad books, unlock for everyone when the
-community **points line** reaches each goal (install +10, share +1/day, €1 donated +10). Donating €5+ also gets a coupon
+community **points line** reaches each goal (install +10, share +5/day, €1 donated +10). Donating €5+ also gets a coupon
 for one skin, €10+ for all of them. Not affiliated with Wattpad.
 
 | Folder | What |

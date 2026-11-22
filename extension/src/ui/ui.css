@@ -256,3 +256,22 @@
 
 .link-btn { display: block; width: 100%; text-align: center !important; font: 600 12.5px/1 system-ui, sans-serif !important; color: var(--iv-accent2) !important; padding: 2px 0 12px !important; }
 .link-btn:hover { text-decoration: underline; }
+
+/* donation: what your gift does */
+.ladder { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
+.step { display: flex !important; flex-direction: column; align-items: flex-start; gap: 3px; text-align: left !important; padding: 10px !important; border-radius: 12px;
+  border: 1px solid var(--iv-line) !important; font: 12px/1.3 system-ui, sans-serif !important; color: var(--iv-muted) !important; transition: border-color .2s, background .2s; }
+.step b { font: 800 16px/1 system-ui, sans-serif; color: var(--iv-text); }
+.step em { font-style: normal; font-weight: 700; color: var(--iv-accent2); }
+.step.is-done { opacity: .7; }
+.step.is-on { border-color: var(--iv-accent) !important; background: color-mix(in srgb, var(--iv-accent) 14%, transparent) !important; color: var(--iv-text) !important; }
+.pick-box:empty { display: none; }
+.pick-box { padding: 12px; border-radius: 14px; margin-bottom: 12px; background: color-mix(in srgb, var(--iv-accent) 9%, transparent); border: 1px solid color-mix(in srgb, var(--iv-accent) 28%, transparent); }
+.pick-title { font: 700 13px/1.2 system-ui, sans-serif; margin-bottom: 10px; }
+.pick-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 8px; }
+.pick-skin { display: flex !important; flex-direction: column; align-items: center; gap: 3px; padding: 8px 4px !important; border-radius: 10px;
+  background: var(--c-bg) !important; color: var(--c-text) !important; border: 1.5px solid transparent !important; }
+.pick-skin.is-on { border-color: var(--c-acc2) !important; box-shadow: 0 0 0 3px color-mix(in srgb, var(--c-acc2) 25%, transparent); }
+.pick-skin .pn { font-size: 13px; line-height: 1.1; }
+.pick-skin .pf { font-size: 9.5px; opacity: .65; font-style: italic; line-height: 1.15; text-align: center; }
+.all-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }

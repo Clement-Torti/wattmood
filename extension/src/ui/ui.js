@@ -222,46 +222,66 @@
       const C = IV.CONFIG;
       const code = await IV.community.code();
       const snap = this.snap || (await IV.community.snapshot());
-      const guess = { pt: 'BRL', es: 'EUR', fr: 'EUR', en: 'USD' }[IV.lang()] || 'EUR';
-      let cur = (navigator.language || '').match(/-(MX)$/i) ? 'MXN' : (navigator.language || '').match(/-(AR)$/i) ? 'ARS' : (navigator.language || '').match(/-(CO)$/i) ? 'COP' : (navigator.language || '').match(/-(GB)$/i) ? 'GBP' : (navigator.language || '').match(/-(BR)$/i) ? 'BRL' : guess;
-      let amount = C.CURRENCIES[cur].presets[1];
+      const locked = snap.skins.filter((x) => !x.unlocked);
+      const lang = navigator.language || '';
+      const byRegion = { MX: 'MXN', AR: 'ARS', CO: 'COP', CL: 'CLP', PE: 'PEN', GB: 'GBP', BR: 'BRL', CA: 'CAD', CH: 'CHF', US: 'USD' };
+      const region = (lang.match(/-([A-Z]{2})$/i) || [])[1];
+      let cur = (region && byRegion[region.toUpperCase()]) || ({ pt: 'BRL', en: 'USD' }[IV.lang()] || 'EUR');
+      let amount = C.CURRENCIES[cur].presets[0]; // 1 € / 1 $ by default
+      let pick = locked.length ? locked[0].id : null;
+      const thumb = (id, size) => IV.skinThumb(IV.getEdition(id), size);
       const m = this.openModal(`
         <div class="eyebrow">${esc(t('donate'))}</div><h2>${esc(t('donateTitle'))}</h2>
         <label class="field-label">${esc(t('donateAmount'))}</label>
         <div class="amounts"></div>
         <div class="amount-row"><input type="number" min="1" step="1" class="amount" inputmode="decimal">
           <select class="currency" aria-label="${esc(t('currency'))}">${Object.keys(C.CURRENCIES).map((c) => `<option value="${c}">${c}</option>`).join('')}</select></div>
-        <div class="d-points"></div>
-        <div class="tier tier-pick"><div class="tier-txt"></div></div>
-        <div class="tier tier-all"><div class="tier-txt"></div></div>
+        <label class="field-label">${esc(t('giftTitle'))}</label>
+        <div class="ladder"></div>
+        <div class="pick-box"></div>
         <div class="code-box"><div>${esc(t('donateCode'))}</div><div class="code-row"><code>${esc(code)}</code><button class="btn ghost small" data-act="copy-code">${esc(t('copy'))}</button></div></div>
         <div class="d-note">⏳ ${esc(t('reviewNote'))}<br>👪 ${esc(t('donateMinor'))}</div>
         <div class="modal-actions"><button class="btn ghost" data-act="modal-close">${esc(t('cancel'))}</button><button class="btn primary" data-act="donate-go">${esc(t('donateGo'))} ↗</button></div>`, 'donate');
-      const $ = (s) => m.querySelector(s);
+      const $ = (sel) => m.querySelector(sel);
       const render = () => {
         const c = C.CURRENCIES[cur];
-        $('.amounts').innerHTML = c.presets.map((v) => `<button class="chip${+amount === v ? ' is-on' : ''}" data-amount="${v}">${c.symbol}${IV.fmtNum(v)}</button>`).join('');
-        $('.amount').value = amount;
-        $('.currency').value = cur;
+        const money = (v) => `${c.symbol}${IV.fmtNum(v)}`;
         const eur = IV.community.toEur(amount, cur);
-        $('.d-points').textContent = t('donatePoints', { n: IV.fmtNum(IV.community.pointsFor(amount, cur)) });
-        const pickMin = `${Math.ceil(C.PICK_ONE_EUR / c.rate)} ${c.symbol}`, allMin = `${Math.ceil(C.ALL_SKINS_EUR / c.rate)} ${c.symbol}`;
-        $('.tier-pick .tier-txt').textContent = t('donatePick', { min: pickMin });
-        $('.tier-all .tier-txt').textContent = t('donateAll', { min: allMin });
-        $('.tier-pick').classList.toggle('is-active', eur >= C.PICK_ONE_EUR && eur < C.ALL_SKINS_EUR);
-        $('.tier-all').classList.toggle('is-active', eur >= C.ALL_SKINS_EUR);
+        const tier = eur >= C.ALL_SKINS_EUR ? 2 : eur >= C.PICK_ONE_EUR ? 1 : 0;
+        $('.amounts').innerHTML = c.presets.map((v) => `<button class="chip${+amount === v ? ' is-on' : ''}" data-amount="${v}">${money(v)}</button>`).join('');
+        if (document.activeElement !== $('.amount') || +$('.amount').value !== +amount) $('.amount').value = amount;
+        $('.currency').value = cur;
+        const steps = [
+          { min: c.presets[0], extra: '' },
+          { min: Math.ceil(C.PICK_ONE_EUR / c.rate), extra: t('giftOne') },
+          { min: Math.ceil(C.ALL_SKINS_EUR / c.rate), extra: t('giftAll') },
+        ];
+        $('.ladder').innerHTML = steps.map((st, i) => `<button class="step${i === tier ? ' is-on' : ''}${i < tier ? ' is-done' : ''}" data-amount="${st.min}">
+          <b>${money(st.min)}${i ? '+' : ''}</b><span>${esc(t('giftPoints', { n: IV.fmtNum(IV.community.pointsFor(i === tier ? amount : st.min, cur)) }))}</span>${st.extra ? `<em>${esc(st.extra)}</em>` : ''}</button>`).join('');
+        if (tier === 1 && locked.length) {
+          $('.pick-box').innerHTML = `<div class="pick-title">🎁 ${esc(t('pickTitle'))}</div>
+            <div class="pick-grid">${locked.map((x) => { const e = IV.getEdition(x.id); return `<button class="pick-skin${x.id === pick ? ' is-on' : ''}" data-pick="${x.id}" style="--c-bg:${e.moods.midnight.bg};--c-text:${e.moods.midnight.text};--c-acc2:${e.moods.midnight.accent2}">
+              ${thumb(x.id, 30)}<span class="pn" style="font-family:${esc(e.fonts.display)}">${esc(e.name)}</span>${e.inspiredBy ? `<span class="pf">${esc(e.inspiredBy.title)}</span>` : ''}</button>`; }).join('')}</div>
+            <div class="d-note">${esc(t('pickNote'))}</div>`;
+        } else if (tier === 2 && locked.length) {
+          $('.pick-box').innerHTML = `<div class="pick-title">✨ ${esc(t('allTitle'))}</div><div class="all-row">${locked.map((x) => `<span title="${esc(IV.getEdition(x.id).name)}">${thumb(x.id, 30)}</span>`).join('')}</div>
+            <div class="d-note">${esc(t('pickNote'))}</div>`;
+        } else $('.pick-box').innerHTML = '';
         $('[data-act="donate-go"]').disabled = !(eur > 0);
       };
       m.addEventListener('click', async (e) => {
         const chip = e.target.closest('[data-amount]');
-        if (chip) { amount = +chip.dataset.amount; render(); }
+        if (chip) { amount = +chip.dataset.amount; render(); return; }
+        const ps = e.target.closest('[data-pick]');
+        if (ps) { pick = ps.dataset.pick; render(); return; }
         if (e.target.closest('[data-act="copy-code"]')) {
           try { await navigator.clipboard.writeText(code); } catch (_) { /* ignore */ }
           e.target.closest('button').textContent = t('copied');
         }
         if (e.target.closest('[data-act="donate-go"]')) {
           try { await navigator.clipboard.writeText(code); } catch (_) { /* ignore */ }
-          await IV.community.pledge({ amount, currency: cur });
+          const eur = IV.community.toEur(amount, cur);
+          await IV.community.pledge({ amount, currency: cur, pick: eur >= C.PICK_ONE_EUR && eur < C.ALL_SKINS_EUR ? pick : null });
           await IV.community.openDonate();
           this.openModal(`<div class="thanks-art">${IV.skinThumb(this.app.skin, 64)}</div><h2>${esc(t('donateThanks'))}</h2>
             <p>${esc(t('donateCode'))}</p><div class="code-row center"><code>${esc(code)}</code></div>
@@ -271,8 +291,8 @@
         }
       });
       m.addEventListener('input', (e) => {
-        if (e.target.classList.contains('amount')) { amount = Math.max(0, parseFloat(e.target.value) || 0); const v = e.target.value; render(); e.target.value = v; }
-        if (e.target.classList.contains('currency')) { cur = e.target.value; amount = C.CURRENCIES[cur].presets[1]; render(); }
+        if (e.target.classList.contains('amount')) { amount = Math.max(0, parseFloat(e.target.value) || 0); render(); }
+        if (e.target.classList.contains('currency')) { cur = e.target.value; amount = C.CURRENCIES[cur].presets[0]; render(); }
       });
       render();
     }
@@ -280,13 +300,14 @@
     async openCoupon() {
       const snap = this.snap || (await IV.community.snapshot());
       const locked = snap.skins.filter((s) => !s.unlocked);
+      const lastPick = ((await IV.community.pledges()).filter((p) => p.pick).pop() || {}).pick;
       const m = this.openModal(`
         <div class="eyebrow">${esc(t('haveCoupon'))}</div><h2>${esc(t('couponTitle'))}</h2>
         <p class="d-note">${esc(t('couponHint'))}</p>
         <label class="field-label">${esc(t('couponCode'))}</label>
         <input class="coupon" autocomplete="off" spellcheck="false" placeholder="WMC-XXXX-XXXX" style="font:700 17px/1 ui-monospace,Menlo,monospace;letter-spacing:.08em;text-transform:uppercase">
         ${locked.length ? `<label class="field-label" style="margin-top:12px">${esc(t('couponPick'))}</label>
-        <select class="pick">${locked.map((s) => { const e = IV.getEdition(s.id); return `<option value="${s.id}">${esc(e.name)}${e.inspiredBy ? ` — ${esc(t('inspiredBy', { book: e.inspiredBy.title }))}` : ''}</option>`; }).join('')}</select>` : ''}
+        <select class="pick">${locked.map((s) => { const e = IV.getEdition(s.id); return `<option value="${s.id}"${s.id === lastPick ? ' selected' : ''}>${esc(e.name)}${e.inspiredBy ? ` — ${esc(t('inspiredBy', { book: e.inspiredBy.title }))}` : ''}</option>`; }).join('')}</select>` : ''}
         <div class="fb-err"></div>
         <p class="d-note">${esc(t('couponSync'))}</p>
         <div class="modal-actions"><button class="btn ghost" data-act="modal-close">${esc(t('cancel'))}</button><button class="btn primary" data-act="coupon-go">${esc(t('couponGo'))}</button></div>`, 'coupon');

@@ -137,19 +137,20 @@
     },
 
     /** Record a pledge (before opening Buy Me a Coffee). It shows on the line immediately as "in review". */
-    async pledge({ amount, currency }) {
+    async pledge({ amount, currency, pick }) {
       const eur = community.toEur(amount, currency);
       const p = {
         id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
         amount: Number(amount), currency, eur: Math.round(eur * 100) / 100,
         points: community.pointsFor(amount, currency),
         coupon: eur >= C().ALL_SKINS_EUR ? 'all' : eur >= C().PICK_ONE_EUR ? 'one' : '',
+        pick: eur >= C().PICK_ONE_EUR && eur < C().ALL_SKINS_EUR ? pick || null : null,
         at: Date.now(),
       };
       const pledges = await community.pledges();
       pledges.push(p);
       await local.set({ wmPledges: pledges.slice(-30) });
-      await send({ type: 'wm:event', event: { type: 'pledge', amount: p.amount, currency, eur: p.eur, points: p.points, coupon: p.coupon } });
+      await send({ type: 'wm:event', event: { type: 'pledge', amount: p.amount, currency, eur: p.eur, points: p.points, coupon: p.coupon === 'one' && p.pick ? `one: ${p.pick}` : p.coupon } });
       return p;
     },
 

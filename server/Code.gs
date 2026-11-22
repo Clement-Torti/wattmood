@@ -14,7 +14,7 @@
  *   Meta       key | value                                      (updatedAt = last time Donations was edited)
  */
 
-const POINTS = { install: 10, share: 1 };
+const POINTS = { install: 10, share: 5 };
 const TABS = {
   Events: ['time', 'type', 'code', 'lang', 'details'],
   Pledges: ['time', 'code', 'amount', 'currency', 'eur', 'points', 'coupon type'],
