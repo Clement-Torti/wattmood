@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff8a3d"/><stop offset=".55" stop-color="#ff5b14"/><stop offset="1" stop-color="#e8400a"/></linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff3c4" stop-opacity=".95"/><stop offset="1" stop-color="#fff3c4" stop-opacity="0"/></radialGradient>
+    <linearGradient id="flame" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fffbe8"/><stop offset="1" stop-color="#ffd36e"/></linearGradient>
+  </defs>
+  <rect x="4" y="4" width="120" height="120" rx="30" fill="url(#bg)"/>
+  <circle cx="64" cy="34" r="22" fill="url(#glow)"/>
+  <path d="M22 50 C 30 76, 36 92, 42 96 C 48 99, 55 70, 64 58 C 73 70, 80 99, 86 96 C 92 92, 98 76, 106 50" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M64 16 C 71 25, 73 32, 70 39 C 68 43, 60 43, 58 39 C 55 33, 58 26, 64 16 Z" fill="url(#flame)"/>
+</svg>

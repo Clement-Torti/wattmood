@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Welcome to WattMood</title>
+  <link rel="icon" href="logo.svg">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,400&family=Inter:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrap" style="text-align:center;padding:60px 0">
+    <img src="logo.svg" alt="" style="width:84px;height:84px;border-radius:20px">
+    <h1 id="h"></h1>
+    <p class="lead" id="p" style="margin:0 auto"></p>
+    <div class="how" style="max-width:760px;margin:34px auto" id="steps"></div>
+    <a class="btn primary" href="https://www.wattpad.com/" id="go"></a>
+    <p class="note" id="n"></p>
+  </div>
+  <script>
+    const W = {
+      en: ['You just added +10 points ✨', 'WattMood is on. Open Wattpad: everything is in your mood now.', [['🌙', 'Moods', 'Midnight, Daylight or Candlelight — the round button at the bottom.'], ['✦', 'Atelier', 'Skins, text size, focus layout, language.'], ['📈', 'Community line', 'Bottom-left: every install and share unlocks skins for everyone.']], 'Open Wattpad', 'Tip: pin WattMood from the puzzle icon in Chrome’s toolbar.'],
+      es: ['Acabas de sumar +10 puntos ✨', 'WattMood está activado. Abre Wattpad: todo tiene tu ambiente.', [['🌙', 'Ambientes', 'Noche, Día o Vela: el botón redondo de abajo.'], ['✦', 'Taller', 'Skins, tamaño del texto, modo foco, idioma.'], ['📈', 'Línea de la comunidad', 'Abajo a la izquierda: cada instalación desbloquea skins para todos.']], 'Abrir Wattpad', 'Consejo: fija WattMood desde el icono del puzle de Chrome.'],
+      pt: ['Você acabou de somar +10 pontos ✨', 'O WattMood está ativo. Abra o Wattpad: tudo está no seu clima.', [['🌙', 'Climas', 'Noite, Dia ou Vela — o botão redondo embaixo.'], ['✦', 'Ateliê', 'Skins, tamanho do texto, modo foco, idioma.'], ['📈', 'Linha da comunidade', 'Canto inferior esquerdo: cada instalação desbloqueia skins para todos.']], 'Abrir o Wattpad', 'Dica: fixe o WattMood pelo ícone de quebra-cabeça do Chrome.'],
+      fr: ['Tu viens d’ajouter +10 points ✨', 'WattMood est activé. Ouvre Wattpad : tout est dans ton ambiance.', [['🌙', 'Ambiances', 'Nuit, Jour ou Bougie — le bouton rond en bas.'], ['✦', 'Atelier', 'Skins, taille du texte, mode focus, langue.'], ['📈', 'Ligne de la communauté', 'En bas à gauche : chaque installation débloque des skins pour tous.']], 'Ouvrir Wattpad', 'Astuce : épingle WattMood depuis l’icône puzzle de Chrome.'],
+    };
+    const l = W[(navigator.language || 'en').slice(0, 2)] || W.en;
+    document.getElementById('h').textContent = l[0];
+    document.getElementById('p').textContent = l[1];
+    document.getElementById('steps').innerHTML = l[2].map(([i, b, s]) => `<div><b>${i}</b><span><strong style="color:var(--text)">${b}</strong><br>${s}</span></div>`).join('');
+    document.getElementById('go').textContent = l[3];
+    document.getElementById('n').textContent = l[4];
+  </script>
+</body>
+</html>

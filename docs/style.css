@@ -1,0 +1,68 @@
+:root { --bg: #120f17; --surface: #1c1824; --line: rgba(255,255,255,.09); --text: #f1ece6; --muted: #a79fae; --orange: #ff6a1f; --gold: #f2b35b; color-scheme: dark; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 "Inter", system-ui, -apple-system, sans-serif; overflow-x: hidden;
+  background-image: radial-gradient(80% 50% at 100% 0%, rgba(255,106,31,.14), transparent 60%), radial-gradient(70% 50% at 0% 40%, rgba(200,32,61,.12), transparent 60%); }
+a { color: var(--gold); }
+.wrap { width: min(1100px, 100% - 32px); margin: 0 auto; }
+nav.top { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; }
+.brand { display: flex; gap: 10px; align-items: center; font: 400 24px/1 "Fraunces", Georgia, serif; text-decoration: none; color: var(--text); }
+.brand img { width: 36px; height: 36px; border-radius: 9px; }
+.langs { display: flex; gap: 4px; }
+.langs button { background: none; border: 1px solid transparent; color: var(--muted); font: 600 12px system-ui, sans-serif; padding: 6px 8px; border-radius: 8px; cursor: pointer; }
+.langs button.on { color: var(--text); border-color: var(--line); }
+.hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 48px; align-items: center; padding: 48px 0 64px; }
+.kicker { font: 700 12px/1 system-ui, sans-serif; letter-spacing: .24em; text-transform: uppercase; color: var(--orange); }
+h1 { font: 400 clamp(38px, 6vw, 64px)/1.05 "Fraunces", Georgia, serif; margin: 14px 0 18px; letter-spacing: -.01em; }
+h1 em { font-style: italic; color: var(--gold); }
+.lead { font-size: 18px; color: #d9d2cb; max-width: 34em; }
+.cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 20px; border-radius: 999px; font: 700 15px/1 system-ui, sans-serif; text-decoration: none; border: 1px solid var(--line); color: var(--text); cursor: pointer; background: none; }
+.btn.primary { background: linear-gradient(90deg, var(--orange), #e8400a); border: 0; color: #fff; box-shadow: 0 14px 40px -14px rgba(255,106,31,.7); }
+.note { font-size: 13px; color: var(--muted); margin-top: 12px; }
+.phone { position: relative; border-radius: 22px; overflow: hidden; border: 1px solid var(--line); background: #0b090a; aspect-ratio: 4 / 3.3; box-shadow: 0 40px 90px -40px #000; }
+.phone .page { position: absolute; inset: 0; padding: 28px 34px; transition: opacity .8s ease; }
+.phone .seal { width: 46px; height: 46px; margin: 0 auto 8px; }
+.phone .kick { text-align: center; font: 700 10px/1 system-ui; letter-spacing: .4em; text-transform: uppercase; }
+.phone .ttl { text-align: center; font-size: 30px; margin: 8px 0 14px; }
+.phone p { margin: 0 0 10px; font-size: 14px; line-height: 1.7; }
+.phone .bub { display: inline-block; padding: 6px 12px; border-radius: 14px 14px 14px 4px; font-size: 14px; margin: 2px 0 10px; }
+section { padding: 56px 0; border-top: 1px solid var(--line); }
+h2 { font: 400 clamp(28px, 4vw, 40px)/1.1 "Fraunces", Georgia, serif; margin: 0 0 10px; }
+.sub { color: var(--muted); margin: 0 0 28px; max-width: 40em; }
+.features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.feat { padding: 20px; border-radius: 18px; background: var(--surface); border: 1px solid var(--line); }
+.feat b { display: block; font-size: 17px; margin: 8px 0 4px; }
+.feat span { color: var(--muted); font-size: 14px; }
+.feat .ic { font-size: 24px; }
+.line-card { padding: 22px; border-radius: 20px; background: var(--surface); border: 1px solid var(--line); }
+.line-top { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; margin-bottom: 34px; flex-wrap: wrap; }
+.total { font: 400 46px/1 "Fraunces", Georgia, serif; }
+.total small { font: 600 14px system-ui; color: var(--muted); }
+.track { position: relative; height: 10px; border-radius: 99px; background: rgba(255,255,255,.08); margin: 0 14px 44px; }
+.fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: inherit; background: linear-gradient(90deg, var(--orange), var(--gold)); box-shadow: 0 0 20px -2px var(--orange); width: 0; transition: width 1.6s cubic-bezier(.2,.8,.2,1); }
+.mark { position: absolute; top: 50%; transform: translate(-50%, -50%); text-align: center; }
+.mark .dot { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--surface); border: 1.5px solid var(--line); filter: grayscale(1); opacity: .65; }
+.mark.on .dot { filter: none; opacity: 1; border-color: var(--gold); }
+.mark .g { position: absolute; top: 40px; left: 50%; transform: translateX(-50%); font-size: 11px; color: var(--muted); white-space: nowrap; }
+.how { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 8px; }
+.how div { padding: 14px; border-radius: 14px; border: 1px solid var(--line); }
+.how b { font: 400 26px/1 "Fraunces", Georgia, serif; color: var(--gold); display: block; margin-bottom: 4px; }
+.how span { font-size: 14px; color: var(--muted); }
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+.skin { border-radius: 18px; padding: 18px; border: 1px solid var(--line); position: relative; overflow: hidden; }
+.skin .em { width: 58px; height: 58px; }
+.skin .nm { font-size: 22px; margin: 10px 0 2px; }
+.skin .fr { font-size: 13px; opacity: .75; font-style: italic; }
+.skin .gl { position: absolute; top: 14px; right: 14px; font: 700 11px system-ui; padding: 4px 8px; border-radius: 99px; background: rgba(255,255,255,.12); }
+.skin .gl.free { background: var(--gold); color: #1a1208; }
+.skin .pal { display: flex; gap: 5px; margin-top: 12px; }
+.skin .pal i { width: 16px; height: 16px; border-radius: 50%; border: 1px solid rgba(127,127,127,.4); }
+.faq details { border-bottom: 1px solid var(--line); padding: 14px 0; }
+.faq summary { cursor: pointer; font-weight: 600; }
+.faq p { color: var(--muted); margin: 8px 0 0; }
+footer { padding: 30px 0 50px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.legal h1 { font-size: 40px; }
+.legal h2 { font-size: 24px; margin-top: 28px; }
+.legal p, .legal li { color: #d7d0c9; }
+@media (max-width: 860px) { .hero { grid-template-columns: 1fr; } .features, .how { grid-template-columns: 1fr; } }

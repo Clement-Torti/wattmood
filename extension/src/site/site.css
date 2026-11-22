@@ -1,0 +1,62 @@
+/* ==========================================================================
+   WattMood — site-wide skin. Applies on every Wattpad page while <html> has .iv-on.
+   Roles come from src/site/recolor.js (data-wm-*), colours from the active skin (--iv-*).
+   Chapter-specific styling lives in src/reader/folio.css (loaded after this file).
+   ========================================================================== */
+
+html.iv-on {
+  background: var(--iv-bg) !important;
+  color-scheme: light;
+  /* Wattpad's own design tokens (new React pages) */
+  --wp-neutral-1: var(--iv-text);
+  --wp-neutral-2: var(--iv-muted);
+  --wp-neutral-3: var(--iv-line);
+  --wp-neutral-6: var(--iv-muted);
+  --wp-neutral-11: var(--iv-line);
+  --wp-neutral-15: var(--iv-surface);
+  --wp-neutral-16: var(--iv-line);
+  --wp-neutral-17: var(--iv-line);
+  --wp-neutral-20: var(--iv-muted);
+  --wp-neutral-32: var(--iv-muted);
+  --wp-base-1: var(--iv-accent);
+  --wp-neutral-22: var(--iv-accent);
+  --wp-neutral-28: var(--iv-accent);
+  --wp-background-2: var(--iv-surface);
+}
+html.iv-on[data-mood="midnight"] { color-scheme: dark; }
+html.iv-on body { background: transparent !important; color: var(--iv-text); }
+html.iv-on ::selection { background: var(--iv-selection); }
+
+/* roles */
+html.iv-on [data-wm-bg="page"] { background-color: transparent !important; }
+html.iv-on [data-wm-bg="card"] { background-color: var(--iv-surface) !important; }
+html.iv-on [data-wm-bg="raised"] { background-color: color-mix(in srgb, var(--iv-text) 8%, var(--iv-surface)) !important; }
+html.iv-on [data-wm-bg="ink"] { background-color: var(--iv-text) !important; color: var(--iv-bg) !important; }
+html.iv-on [data-wm-bg="brand"] { background-color: var(--iv-accent) !important; }
+html.iv-on [data-wm-fg="text"] { color: var(--iv-text) !important; }
+html.iv-on [data-wm-fg="muted"] { color: var(--iv-muted) !important; }
+html.iv-on [data-wm-fg="brand"] { color: var(--iv-accent) !important; }
+html.iv-on [data-wm-b] { border-color: var(--iv-line) !important; }
+html.iv-on [data-wm-bg="ink"] [data-wm-fg="text"] { color: var(--iv-bg) !important; }
+
+/* form fields */
+html.iv-on :is(input, textarea, select):not([type="checkbox"]):not([type="radio"]) {
+  background-color: color-mix(in srgb, var(--iv-text) 6%, var(--iv-surface)) !important;
+  color: var(--iv-text) !important; border-color: var(--iv-line) !important;
+}
+html.iv-on :is(input, textarea)::placeholder { color: var(--iv-muted) !important; }
+
+/* skin typography on headings (titles feel like the skin; body UI stays Wattpad's for legibility) */
+html.iv-on :is(h1, h2):not(.iv-title) { font-family: var(--iv-font-display) !important; letter-spacing: .01em; }
+
+/* covers & avatars sit nicely on dark moods */
+html.iv-on[data-mood="midnight"] img:not([src*=".svg"]) { box-shadow: 0 10px 30px -18px rgba(0, 0, 0, .7); }
+
+/* atmosphere on every page, under the content */
+html.iv-on .iv-atmo { position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: calc(var(--iv-atmo, .7) * .8); }
+html.iv-on .iv-atmo > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+@media (prefers-reduced-motion: reduce) { html.iv-on .iv-atmo * { animation: none !important; } }
+
+/* WattMood's own floating UI host */
+body:is(.paragraph-comments-drawer-open, .modal-open) ~ #wattmood-ui { display: none !important; }
+body:has(.bottom-banner.show) ~ #wattmood-ui { --iv-safe-bottom: 84px; }

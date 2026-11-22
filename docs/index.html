@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WattMood — Skins & dark mode for Wattpad</title>
+  <meta name="description" content="Dark, light and warm reading moods for all of Wattpad, plus community-unlocked skins inspired by the most-loved Wattpad books.">
+  <meta property="og:title" content="WattMood — Skins & dark mode for Wattpad">
+  <meta property="og:description" content="Read Wattpad in skins inspired by your favourite books. Unlock new ones together.">
+  <meta property="og:image" content="https://clement-torti.github.io/wattmood/icon128.png">
+  <link rel="icon" href="logo.svg">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,400&family=Inter:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrap">
+    <nav class="top">
+      <a class="brand" href="./"><img src="logo.svg" alt=""> WattMood</a>
+      <div class="langs" id="langs"></div>
+    </nav>
+
+    <header class="hero">
+      <div>
+        <div class="kicker" data-t="kicker"></div>
+        <h1 data-t-html="title"></h1>
+        <p class="lead" data-t="lead"></p>
+        <div class="cta">
+          <a class="btn primary" id="install" href="#" data-t="install"></a>
+          <a class="btn" href="#line" data-t="seeLine"></a>
+        </div>
+        <p class="note" data-t="notAffiliated"></p>
+        <p class="note" id="invited" hidden data-t="invited"></p>
+      </div>
+      <div class="phone" id="demo" aria-hidden="true"></div>
+    </header>
+  </div>
+
+  <section><div class="wrap">
+    <h2 data-t="featTitle"></h2>
+    <div class="features" id="features"></div>
+  </div></section>
+
+  <section id="line"><div class="wrap">
+    <h2 data-t="lineTitle"></h2>
+    <p class="sub" data-t="lineSub"></p>
+    <div class="line-card">
+      <div class="line-top"><div><div class="kicker" data-t="goal"></div><div class="total"><span id="total">—</span> <small>pts</small></div></div><div id="next"></div></div>
+      <div class="track" id="track"><span class="fill" id="fill"></span></div>
+      <div class="how">
+        <div><b>+10</b><span data-t="howInstall"></span></div>
+        <div><b>+1</b><span data-t="howShare"></span></div>
+        <div><b>+10 / €</b><span data-t="howDonate"></span></div>
+      </div>
+      <div class="cta"><a class="btn" id="donate" target="_blank" rel="noopener" data-t="donate"></a></div>
+    </div>
+  </div></section>
+
+  <section><div class="wrap">
+    <h2 data-t="skinsTitle"></h2>
+    <p class="sub" data-t="skinsSub"></p>
+    <div class="gallery" id="gallery"></div>
+  </div></section>
+
+  <section class="faq"><div class="wrap">
+    <h2>FAQ</h2>
+    <div id="faq"></div>
+  </div></section>
+
+  <div class="wrap"><footer>
+    <span>© WattMood · <span data-t="notAffiliated"></span></span>
+    <span><a href="privacy.html" data-t="privacy"></a> · <a href="https://github.com/Clement-Torti/wattmood">GitHub</a> · <a href="https://buymeacoffee.com/ctorti">Buy Me a Coffee</a></span>
+  </footer></div>
+  <script src="site.js"></script>
+</body>
+</html>

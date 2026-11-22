@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Edition Forge</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap">
+  <style>
+    :root { --bg: #14111a; --surface: #1d1924; --line: rgba(255,255,255,.08); --text: #ece6dc; --muted: #9d958b; --gold: #e2bd78; color-scheme: dark; }
+    body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.6 Inter, system-ui, sans-serif; }
+    main { max-width: 860px; margin: 0 auto; padding: 48px 16px 80px; }
+    h1 { font: 400 40px/1.1 Fraunces, Georgia, serif; margin: 0 0 8px; }
+    p.lead { color: var(--muted); margin: 0 0 28px; font-size: 16px; }
+    ol { padding-left: 20px; color: var(--muted); }
+    ol b { color: var(--text); font-weight: 500; }
+    .bar { position: sticky; top: 0; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 0; background: var(--bg); border-bottom: 1px solid var(--line); margin-top: 28px; }
+    button { font: 600 13px Inter, sans-serif; padding: 10px 18px; border-radius: 999px; border: 0; cursor: pointer; background: linear-gradient(90deg, #c9553a, var(--gold)); color: #1a1410; }
+    pre { white-space: pre-wrap; word-break: break-word; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px; font: 12.5px/1.6 'JetBrains Mono', ui-monospace, monospace; color: #d9d2c6; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>✦ Edition Forge</h1>
+    <p class="lead">Turn any book into an WattMood Edition: a themed palette, typography, SVG atmosphere and Unveiling.</p>
+    <ol>
+      <li><b>Copy the prompt</b> below.</li>
+      <li><b>Fill in the BOOK block</b> (title, author, Wattpad title variants).</li>
+      <li><b>Paste it into Claude</b>. In Claude Code, open it inside the <code>wattmood/</code> folder so it can write the files.</li>
+      <li><b>Validate</b> with <code>node tools/check-edition.mjs editions/&lt;id&gt;.js</code> and reload the extension.</li>
+    </ol>
+    <div class="bar"><span>EDITION_FORGE_PROMPT.md</span><button id="copy">Copy prompt</button></div>
+    <pre id="prompt">Loading…</pre>
+  </main>
+  <script src="forge.js"></script>
+</body>
+</html>

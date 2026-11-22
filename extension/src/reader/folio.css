@@ -1,0 +1,324 @@
+/* ==========================================================================
+   WattMood Folio — restyles Wattpad's own reading page in place.
+   Injected by the manifest at document_start; every rule is scoped to
+   html.iv-on, so nothing changes until WattMood is switched on.
+   Editions theme it through --iv-* variables (set on <html>) + their `css`.
+   ========================================================================== */
+
+html.iv-on {
+  --iv-ease: cubic-bezier(.22, .8, .24, 1);
+  --iv-size: calc(clamp(17px, 0.55vw + 13px, 21px) * var(--iv-scale, 1));
+  --iv-col: min(var(--iv-measure, 36em), calc(100vw - 140px));
+  background: var(--iv-bg) !important;
+  transition: background-color .7s ease;
+}
+html.iv-on[data-mood="midnight"] { color-scheme: dark; }
+html.iv-on ::selection { background: var(--iv-selection); }
+
+/* Let the Edition background (and the atmosphere) show through Wattpad's wrappers */
+html.iv-on body,
+html.iv-on #app-container, html.iv-on #story-reading, html.iv-on #parts-container-new,
+html.iv-on .story-part, html.iv-on #sticky-end, html.iv-on .part-content, html.iv-on .page,
+html.iv-on .panel-reading, html.iv-on .part-header header,
+html.iv-on #footer-container, html.iv-on #footer, html.iv-on .story-part footer {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+html.iv-on body { color: var(--iv-text) !important; }
+
+/* ---------- Atmosphere (painted under the content) ---------- */
+html.iv-on .iv-atmo {
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  opacity: var(--iv-atmo, .7); transition: opacity .6s ease;
+}
+html.iv-on .iv-atmo > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* ---------- Wattpad chrome: top bars ---------- */
+html.iv-on #header, html.iv-on #funbar {
+  background: color-mix(in srgb, var(--iv-surface) 86%, transparent) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(1.1); backdrop-filter: blur(14px) saturate(1.1);
+  border-bottom: 1px solid var(--iv-line) !important; box-shadow: none !important;
+  transition: transform .45s var(--iv-ease), background-color .7s ease;
+}
+html.iv-on #funbar .toc-full :not(img),
+html.iv-on #header :is(a, button, span, input),
+html.iv-on #funbar :is(a, button:not(.btn-orange), span:not(.fa), .toc-full) { color: var(--iv-text) !important; }
+html.iv-on #header .try-premium, html.iv-on #header .try-premium * { color: #fff !important; }
+html.iv-on #header input { background: color-mix(in srgb, var(--iv-text) 6%, transparent) !important; border-color: var(--iv-line) !important; }
+html.iv-on #funbar .btn-orange { background: var(--iv-accent) !important; border-color: var(--iv-accent) !important; color: #fff !important; }
+html.iv-on #funbar .on-vote, html.iv-on #funbar .on-vote * { color: var(--iv-accent2) !important; }
+html.iv-on #funbar :is(#funbar-story, .dropdown, .btn-toc, #funbar-controls, .button-group) { border-color: var(--iv-line) !important; background-color: transparent !important; }
+html.iv-on #funbar-reading-progress { background: transparent !important; }
+html.iv-on #progressbar { background: linear-gradient(90deg, var(--iv-accent), var(--iv-accent2)) !important; }
+html.iv-on.iv-chrome-away #header { transform: translateY(-100%); }
+html.iv-on.iv-chrome-away #funbar { transform: translateY(calc(-100% - 60px)); }
+
+/* Dropdowns / menus / modals follow the mood */
+html.iv-on :is(#header, #funbar, .part-content, footer) .dropdown-menu,
+html.iv-on .modal-content {
+  background: var(--iv-surface) !important; color: var(--iv-text) !important;
+  border: 1px solid var(--iv-line) !important; box-shadow: 0 24px 60px -24px rgba(0, 0, 0, .55) !important;
+}
+html.iv-on :is(#header, #funbar, .part-content, footer) .dropdown-menu :is(a, li, span:not(.fa), h1, h2, h3, h4, p, div) { color: var(--iv-text) !important; background-color: transparent !important; }
+html.iv-on :is(#header, #funbar) .dropdown-menu .triangle { display: none !important; }
+html.iv-on .table-of-contents li.active a, html.iv-on .table-of-contents a:hover { background: color-mix(in srgb, var(--iv-accent) 14%, transparent) !important; }
+
+/* ---------- Chapter banner ---------- */
+html.iv-on #media-container {
+  -webkit-mask-image: linear-gradient(#000 55%, transparent); mask-image: linear-gradient(#000 55%, transparent);
+}
+
+/* ---------- Focus layout: one centred column ---------- */
+html.iv-on.iv-focus .story-part .part-header > div,
+html.iv-on.iv-focus .story-part .page > .panel-reading,
+html.iv-on.iv-focus .story-part footer .part-col {
+  float: none !important;
+  width: var(--iv-col) !important; max-width: none !important;
+  margin-left: auto !important; margin-right: auto !important;
+  padding-left: 0 !important; padding-right: 0 !important;
+  left: auto !important; right: auto !important;
+}
+html.iv-on.iv-focus .story-part .left-rail { display: none !important; }
+html.iv-on.iv-focus .part-header .author.hidden-lg { display: block !important; }
+html.iv-on.iv-focus .story-part .page { position: relative; }
+/* the ad / similar-stories rail moves to the page edge when there's room for it */
+html.iv-on.iv-focus .story-part .page > .right-rail,
+html.iv-on.iv-focus .story-part footer .part-comments > .right-rail { display: none !important; }
+@media (min-width: 1440px) {
+  html.iv-on.iv-focus .story-part .page.first-page > .right-rail {
+    display: block !important; position: absolute !important; top: 0; float: none !important;
+    right: calc((1160px - 100vw) / 2 + 28px) !important; width: 300px !important; margin: 0 !important;
+  }
+}
+
+/* side rails in the original (non-focus) grid */
+html.iv-on .left-rail :is(a, .title, .info) { color: var(--iv-text) !important; }
+html.iv-on .left-rail .btn-fan { background: transparent !important; border-color: var(--iv-line) !important; color: var(--iv-text) !important; }
+html.iv-on .right-rail :is(h4, .panel-title) { color: var(--iv-muted) !important; }
+html.iv-on .right-rail .similar-stories :is(a, span, p, div, h3, h4, small) { color: var(--iv-text) !important; }
+html.iv-on .right-rail .similar-stories :is(.meta, .meta *, .description) { color: var(--iv-muted) !important; }
+html.iv-on .right-rail .reading-widget { background: transparent !important; }
+
+/* ---------- Chapter head ---------- */
+html.iv-on .part-header { padding-top: 4vh; }
+html.iv-on .part-header header { border: 0 !important; text-align: center; font-family: var(--iv-font-body); font-size: var(--iv-size); }
+html.iv-on .iv-seal { width: 4.2em; height: 4.2em; margin: 0 auto 1.1em; color: var(--iv-accent2); }
+html.iv-on .iv-seal svg { width: 100%; height: 100%; overflow: visible; display: block; }
+html.iv-on .iv-kicker {
+  font: 600 .72em/1 var(--iv-font-display); letter-spacing: .38em; text-transform: uppercase;
+  color: var(--iv-accent); margin-bottom: .9em; padding-left: .38em;
+}
+html.iv-on .iv-title {
+  font: 400 2.25em/1.12 var(--iv-font-display) !important; color: var(--iv-text) !important;
+  margin: 0 0 .5em !important; text-wrap: balance; letter-spacing: .01em;
+}
+html.iv-on .iv-title.is-numeral { font-size: 3.4em !important; line-height: 1 !important; letter-spacing: .04em; }
+html.iv-on .part-header .story-stats, html.iv-on .part-header .story-stats * { color: var(--iv-muted) !important; }
+html.iv-on .part-header .story-stats :not(.fa) { font-family: var(--iv-font-body); font-size: 14px; }
+html.iv-on .part-header .author, html.iv-on .part-header .author a { color: var(--iv-muted) !important; font-style: italic; }
+html.iv-on .part-header .meta, html.iv-on .part-header .meta * { color: var(--iv-muted) !important; }
+html.iv-on .part-header header :not(.iv-ins) { border-color: var(--iv-line) !important; }
+html.iv-on .part-header hr { border-color: var(--iv-line) !important; background: var(--iv-line) !important; }
+html.iv-on .iv-meta { font-size: .78em; color: var(--iv-muted); letter-spacing: .06em; font-style: italic; margin-top: .9em; }
+html.iv-on .iv-rule { width: min(260px, 70%); margin: 1.6em auto 0; color: var(--iv-accent2); }
+html.iv-on .iv-rule svg { width: 100%; height: auto; overflow: visible; display: block; }
+
+/* ---------- Text ---------- */
+html.iv-on .story-part .panel-reading pre {
+  font-family: var(--iv-font-body) !important; font-size: var(--iv-size) !important;
+  color: var(--iv-text) !important; background: transparent !important; border: 0 !important;
+  overflow: visible !important; hyphens: auto; -webkit-hyphens: auto;
+}
+html.iv-on .iv-p {
+  font-family: inherit !important; font-size: inherit !important; color: var(--iv-text) !important;
+  line-height: var(--iv-lh, 1.75) !important;
+  margin: 0 !important; padding: 0 !important; position: relative !important;
+  overflow-wrap: break-word;
+  transition: opacity .5s ease, transform .7s var(--iv-ease), filter .7s ease, color .7s ease;
+}
+html.iv-on[data-align="justify"] .iv-p { text-align: justify; }
+html.iv-on[data-para="spaced"] .iv-p { margin-bottom: 1.05em !important; }
+html.iv-on[data-para="indent"] .iv-p { text-indent: 1.6em; margin-bottom: .25em !important; }
+html.iv-on[data-para="indent"] .iv-p:is(.iv-first, .iv-after-divider) { text-indent: 0; }
+html.iv-on .iv-p.iv-blank { display: none !important; }
+html.iv-on .iv-p.iv-lead-br > br:first-of-type { display: none; }
+html.iv-on .iv-p :is(b, strong) { font-weight: 600; }
+html.iv-on .iv-p img { max-width: 100%; height: auto; border-radius: 4px; }
+
+html.iv-on.iv-dropcap .iv-p.iv-first::first-letter {
+  float: left; font-family: var(--iv-font-display); font-size: 3.6em; line-height: .82;
+  padding: .06em .1em 0 0; color: var(--iv-accent);
+}
+html.iv-on.iv-dropcap .iv-p.iv-first::first-line { font-variant: small-caps; letter-spacing: .04em; }
+
+/* Dialogue typesetting: spoken words get their own voice, quote marks become ornaments */
+html.iv-on .iv-say { color: var(--iv-say, color-mix(in srgb, var(--iv-text) 68%, var(--iv-accent2))); }
+html.iv-on .iv-q { font-family: var(--iv-font-accent); }
+html.iv-on .iv-q { color: var(--iv-accent); font-weight: 600; }
+html.iv-on .iv-q:is(.is-open, .is-close) { font-size: 1.18em; line-height: 0; position: relative; top: .07em; }
+html.iv-on .iv-q.is-open { margin-right: .04em; }
+html.iv-on .iv-q.is-close { margin-left: .03em; }
+html.iv-on .iv-q.is-dash { opacity: .85; }
+html.iv-on .iv-p.iv-dialogue.iv-first::first-letter { color: var(--iv-accent); }
+
+/* ---------- Speech bubbles: paragraphs that open with speech (one side — no speaker guessing) ---------- */
+html.iv-on.iv-bubbles .iv-p.iv-bubble {
+  width: fit-content !important; max-width: min(86%, 30em) !important;
+  padding: .5em 1.05em .55em !important; margin: .2em 0 .75em !important;
+  text-indent: 0 !important; text-align: left !important; hyphens: manual;
+  line-height: calc(var(--iv-lh, 1.75) * .9) !important;
+  color: var(--iv-muted) !important; font-style: italic;
+  background: color-mix(in srgb, var(--iv-text) 7%, var(--iv-bg));
+  border: 1px solid color-mix(in srgb, var(--iv-text) 11%, transparent);
+  border-radius: 1.2em 1.2em 1.2em .3em;
+  border-left: 2px solid color-mix(in srgb, var(--iv-accent) 55%, transparent);
+  box-shadow: 0 8px 22px -16px rgba(0, 0, 0, .6);
+}
+/* spoken words: upright and bright; the tag ("she said") stays small, muted, italic */
+html.iv-on.iv-bubbles .iv-p.iv-bubble .iv-say { font-style: normal; color: var(--iv-bubble-text, var(--iv-text)); }
+html.iv-on.iv-bubbles .iv-p.iv-bubble .iv-say :is(i, em) { font-style: italic; }
+html.iv-on.iv-bubbles .iv-p.iv-bubble .iv-q { font-style: normal; opacity: .75; }
+/* consecutive bubbles sit tighter, like a conversation thread */
+html.iv-on.iv-bubbles .iv-p.iv-bubble + .iv-p.iv-bubble { margin-top: -.3em !important; }
+html.iv-on.iv-bubbles .iv-p.iv-bubble + .iv-p:not(.iv-bubble) { margin-top: .5em !important; }
+html.iv-on[data-reveal="redact"] .iv-p.iv-bubble::after { inset: .5em 1.05em .55em; }
+html.iv-on[data-reveal="rise"].iv-bubbles .iv-p.iv-bubble:not(.is-in) { transform: translateY(14px) scale(.97); }
+@media (max-width: 640px) { html.iv-on.iv-bubbles .iv-p.iv-bubble { max-width: 92% !important; } }
+
+/* Scene breaks: keep Wattpad's paragraph (it can carry comments), draw our ornament on top */
+html.iv-on .iv-p.iv-divider-p { color: transparent !important; text-align: center; margin: 1.4em 0 !important; text-indent: 0 !important; }
+html.iv-on .iv-orn { position: absolute; left: 50%; top: 50%; width: min(200px, 60%); transform: translate(-50%, -50%); color: var(--iv-accent2); pointer-events: none; }
+html.iv-on .iv-orn svg { width: 100%; height: auto; overflow: visible; display: block; }
+
+/* ---------- Paragraph comments: Wattpad's button (Wattpad positions & handles it), re-skinned as a readable pill ---------- */
+html.iv-on .iv-p .comment-marker {
+  left: calc(100% + 16px) !important; right: auto !important;
+  width: auto !important; height: 24px !important; min-width: 0 !important;
+  padding: 0 10px 0 9px !important; margin-top: 8px !important;
+  display: inline-flex !important; align-items: center; gap: 5px;
+  border-radius: 999px !important; text-indent: 0 !important; line-height: 1 !important;
+  color: var(--iv-accent2) !important;
+  background: color-mix(in srgb, var(--iv-accent2) 12%, transparent) !important;
+  border: 1px solid color-mix(in srgb, var(--iv-accent2) 32%, transparent) !important;
+  opacity: .62; transition: opacity .25s ease, background-color .25s ease, color .25s ease;
+}
+html.iv-on .iv-p .comment-marker::before, html.iv-on .iv-p .comment-marker::after { content: none !important; display: none !important; }
+/* Wattpad's own bubble glyph becomes the pill's icon */
+html.iv-on .iv-p .comment-marker .fa {
+  order: -1; display: inline-block !important; position: static !important;
+  font-size: 13px !important; line-height: 1 !important; width: auto !important; height: auto !important;
+  color: inherit !important; margin: 1px 0 0 !important;
+  width: 13px !important; min-width: 13px; overflow: hidden; text-align: center;
+}
+html.iv-on .iv-p .comment-marker .fa::before { position: static !important; inset: auto !important; margin: 0 !important; font-size: 13px !important; line-height: 1 !important; }
+html.iv-on .iv-p .comment-marker .num-comment {
+  position: static !important; inset: auto !important; width: auto !important; margin: 0 !important; padding: 0 !important; transform: none !important;
+  color: inherit !important; font: 600 11.5px/1 system-ui, -apple-system, sans-serif !important;
+  letter-spacing: .01em !important; text-indent: 0 !important; font-variant: normal !important;
+}
+html.iv-on .iv-p:hover .comment-marker, html.iv-on .iv-p.is-focus .comment-marker { opacity: 1; }
+html.iv-on .iv-p .comment-marker:hover { opacity: 1; color: var(--iv-accent) !important; background: color-mix(in srgb, var(--iv-accent) 14%, transparent) !important; border-color: color-mix(in srgb, var(--iv-accent) 45%, transparent) !important; }
+
+/* Text-to-speech player in dark moods */
+html.iv-on[data-mood="midnight"] .trinityAudioPlaceholder { filter: invert(.9) hue-rotate(180deg); opacity: .8; }
+
+/* ---------- Reveal effects ---------- */
+html.iv-on[data-reveal="fade"] .iv-p:not(.is-in) { opacity: 0; }
+html.iv-on[data-reveal="rise"] .iv-p:not(.is-in) { opacity: 0; transform: translateY(14px); }
+html.iv-on[data-reveal="ink"] .iv-p:not(.is-in) { opacity: 0; filter: blur(5px); }
+/* "redact": censor bars on every line slide away to reveal the truth */
+html.iv-on[data-reveal="redact"] .iv-p:not(.iv-divider-p)::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(180deg,
+    transparent 0 calc((var(--iv-lh) - 1) * .5em + .12em),
+    var(--iv-redact, var(--iv-text)) calc((var(--iv-lh) - 1) * .5em + .12em) calc((var(--iv-lh) + 1) * .5em - .08em),
+    transparent calc((var(--iv-lh) + 1) * .5em - .08em) calc(var(--iv-lh) * 1em));
+  clip-path: inset(0 0 0 0);
+  transition: clip-path .85s cubic-bezier(.7, 0, .2, 1) .12s;
+}
+html.iv-on[data-reveal="redact"] .iv-p.is-in::after { clip-path: inset(0 0 0 100%); }
+html.iv-on[data-reveal="redact"] .iv-p:not(.is-in):not(.iv-divider-p),
+html.iv-on[data-reveal="redact"] .iv-p:not(.is-in):not(.iv-divider-p) :is(span, i, em, b, strong):not(.component-wrapper, .component-wrapper *) { color: transparent !important; }
+html.iv-on[data-reveal="redact"] .iv-p.is-in { transition: color .2s ease .45s; }
+
+html.iv-on .part-header :is(.iv-seal, h1) { transition: opacity 1s ease .1s, transform 1.2s var(--iv-ease) .1s; }
+html.iv-on:not([data-reveal="none"]) .part-header header:not(.is-in) :is(.iv-seal, h1) { opacity: 0; transform: translateY(10px); }
+
+/* ---------- Spotlight ---------- */
+html.iv-on.iv-spot .iv-p.is-in:not(.is-focus) { opacity: .26; }
+
+/* ---------- Chapter end ---------- */
+html.iv-on .iv-endrule { width: min(240px, 60%); margin: 2.6em auto 2.2em; color: var(--iv-accent2); }
+html.iv-on .iv-endrule svg { width: 100%; height: auto; overflow: visible; display: block; }
+html.iv-on #story-part-navigation a {
+  background: var(--iv-surface) !important; color: var(--iv-text) !important;
+  border: 1px solid var(--iv-line) !important; border-radius: 14px !important;
+  min-height: 64px; font: 1.1em/1.2 var(--iv-font-display) !important; letter-spacing: .06em;
+  transition: transform .35s var(--iv-ease), border-color .3s ease !important;
+}
+html.iv-on #story-part-navigation a:hover { transform: translateY(-2px); border-color: var(--iv-accent2) !important; }
+html.iv-on #story-part-navigation a > span[class*="overlay"] { display: none !important; }
+html.iv-on .iv-fin { text-align: center; font: italic 1.25em var(--iv-font-accent); color: var(--iv-accent); letter-spacing: .04em; margin: .5em 0 1.5em; }
+
+html.iv-on #part-footer-actions :is(button, a, span:not(.fa)) { color: var(--iv-muted) !important; background: transparent !important; border-color: var(--iv-line) !important; }
+html.iv-on #part-footer-actions :is(.fa, svg) { color: var(--iv-accent2) !important; }
+
+/* ---------- Comments: chapter comments + paragraph-comments drawer (Wattpad's React widgets, restyled) ---------- */
+html.iv-on .part-comments { margin-top: 1em; }
+html.iv-on #story-part-comments { color: var(--iv-text) !important; }
+html.iv-on :is(#story-part-comments, .paragraph-comments-drawer) :where(div, p, pre, span, a, b, i, em, strong, h1, h2, h3, h4, time, li, label, button) {
+  color: inherit !important; border-color: var(--iv-line) !important;
+}
+html.iv-on #story-part-comments :where(div, p, pre, span, a, li, h3) { background-color: transparent !important; }
+html.iv-on :is(#story-part-comments, .paragraph-comments-drawer) :is([class*="postedDate"], .text-caption, time) { color: var(--iv-muted) !important; }
+html.iv-on :is(#story-part-comments, .paragraph-comments-drawer) :is(a, [class*="replyButton"], [class*="viewReplies"], [class*="ViewReplies"]) { color: var(--iv-accent2) !important; }
+html.iv-on :is(#story-part-comments, .paragraph-comments-drawer) h3 { color: var(--iv-text) !important; }
+html.iv-on :is(#story-part-comments, .paragraph-comments-drawer) .comment-card-container { border-bottom: 1px solid var(--iv-line) !important; }
+html.iv-on :is(#story-part-comments, .paragraph-comments-drawer) :is(textarea, input, [contenteditable="true"], [role="textbox"]) {
+  background: color-mix(in srgb, var(--iv-text) 6%, transparent) !important; color: var(--iv-text) !important;
+  border: 1px solid var(--iv-line) !important; border-radius: 12px !important;
+}
+html.iv-on :is(#story-part-comments, .paragraph-comments-drawer) :is(textarea, input)::placeholder { color: var(--iv-muted) !important; }
+html.iv-on :is(#story-part-comments, .paragraph-comments-drawer) .textboxContainer__mbQss button,
+html.iv-on :is(#story-part-comments, .paragraph-comments-drawer) [class*="textboxContainer"] button { background: var(--iv-accent) !important; color: #fff !important; }
+html.iv-on #story-part-comments button:is([class*="secondary"], [class*="tertiary"]) {
+  background: transparent !important; border: 1px solid var(--iv-line) !important; border-radius: 999px !important;
+}
+html.iv-on #story-part-comments button span[class*="overlay"] { display: none !important; }
+html.iv-on :is(#story-part-comments, .paragraph-comments-drawer) .fa { color: var(--iv-muted) !important; }
+
+/* the drawer itself */
+html.iv-on .paragraph-comments-drawer :is(.drawer-content, .drawer-header, .drawer-body, .comments-list, .new-comment-field) {
+  background-color: var(--iv-surface) !important; color: var(--iv-text) !important; border-color: var(--iv-line) !important;
+}
+html.iv-on .paragraph-comments-drawer .drawer-content { border-left: 1px solid var(--iv-line) !important; box-shadow: -30px 0 70px -30px rgba(0, 0, 0, .6) !important; }
+html.iv-on .paragraph-comments-drawer .drawer-title { font-family: var(--iv-font-display) !important; letter-spacing: .06em; color: var(--iv-text) !important; }
+html.iv-on .paragraph-comments-drawer .paragraph-content {
+  background: color-mix(in srgb, var(--iv-text) 5%, transparent) !important;
+  box-shadow: inset 3px 0 0 var(--iv-accent) !important;
+}
+html.iv-on .paragraph-comments-drawer .paragraph-content :is(pre, b, i, em, span) { font-family: var(--iv-font-body) !important; color: var(--iv-text) !important; }
+
+/* share icons in the footer bar */
+html.iv-on:not([data-mood="daylight"]) :is(.part-footer-actions__share-row, .part-footer-actions__more) { filter: invert(.85) hue-rotate(180deg); opacity: .7; }
+
+/* Other React modals */
+html.iv-on :is(#react-modal, .ReactModalPortal, #generic-modal) :is([role="dialog"], [class*="modal-content"]) { background-color: var(--iv-surface) !important; color: var(--iv-text) !important; }
+
+/* Login banner & site footer */
+html.iv-on .bottom-banner { background: var(--iv-surface) !important; border-top: 1px solid var(--iv-line) !important; }
+html.iv-on .bottom-banner .bottom-message { color: var(--iv-text) !important; }
+html.iv-on #footer :is(a, li) { color: var(--iv-muted) !important; }
+
+@media (max-width: 760px) {
+  html.iv-on { --iv-col: calc(100vw - 84px); }
+  html.iv-on .iv-p .comment-marker { left: calc(100% + 8px) !important; padding: 0 7px !important; }
+  html.iv-on .iv-p .comment-marker .fa { display: none !important; }
+}
+@media (max-width: 480px) {
+  html.iv-on[data-align="justify"] .iv-p { text-align: left; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html.iv-on .iv-atmo * { animation: none !important; }
+}
+

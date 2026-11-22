@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>WattMood</title>
+  <link rel="stylesheet" href="../src/ui/ui.css">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="ui">
+    <header class="top">
+      <div class="brand">
+        <img class="logo" src="../icons/icon.svg" alt="">
+        <div><h1>WattMood</h1><p class="sub" data-t="tagline"></p></div>
+      </div>
+      <label class="switch"><input type="checkbox" id="enabled"><span></span></label>
+    </header>
+
+    <section class="pl-box"><div class="pl-body" id="pl"></div>
+      <button class="link-btn" data-act="coupon"></button>
+      <div class="pl-actions">
+        <button class="btn ghost" data-act="share"></button>
+        <button class="btn primary" data-act="donate"></button>
+      </div>
+      <div class="toast-line" id="msg" role="status"></div>
+    </section>
+
+    <section><h2 data-t="skins"></h2><div class="grid" id="skins"></div></section>
+    <section><h2 data-t="mood"></h2><div class="moods" id="moods"></div></section>
+
+    <footer>
+      <select id="lang" aria-label="Language"></select>
+      <button class="link-btn inline" data-act="feedback"></button>
+    </footer>
+  </div>
+  <script src="../src/core/config.js"></script>
+  <script src="../src/core/i18n.js"></script>
+  <script src="../src/core/wattmood.js"></script>
+  <script src="../skins/_kit.js"></script>
+  <script src="../skins/classic.js"></script>
+  <script src="../skins/masquerade.js"></script>
+  <script src="../skins/books.js"></script>
+  <script src="../src/core/community.js"></script>
+  <script src="../src/ui/pointline.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

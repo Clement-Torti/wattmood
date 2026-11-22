@@ -1,0 +1,575 @@
+{
+ "endpoint": "",
+ "donate": "https://buymeacoffee.com/ctorti",
+ "points": {
+  "share": 1,
+  "install": 10,
+  "perEuro": 10
+ },
+ "skins": [
+  {
+   "id": "classic",
+   "name": "Basic",
+   "tagline": "Free forever — calm, bookish, easy on the eyes",
+   "inspiredBy": null,
+   "goal": 0,
+   "emblem": "\n<svg viewBox=\"0 0 100 100\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n  <circle cx=\"50\" cy=\"50\" r=\"44\" opacity=\".45\"/>\n  <circle cx=\"50\" cy=\"50\" r=\"38\" stroke-dasharray=\"1 5\" opacity=\".6\"/>\n  <path d=\"M50 22 C 60 34, 64 46, 60 60 L 54 70 L 50 78 L 46 70 L 40 60 C 36 46, 40 34, 50 22 Z\" style=\"fill:currentColor;fill-opacity:.12\"/>\n  <path d=\"M50 44 V 74\"/>\n  <circle cx=\"50\" cy=\"44\" r=\"3.2\" style=\"fill:var(--iv-accent, currentColor);stroke:none\"/>\n</svg>",
+   "moods": {
+    "midnight": {
+     "bg": "#121417",
+     "surface": "#1a1d22",
+     "text": "#e4e1da",
+     "muted": "#8d8a83",
+     "accent": "#d4a35a",
+     "accent2": "#9db8c9",
+     "line": "rgba(228,225,218,.12)",
+     "selection": "rgba(212,163,90,.3)"
+    },
+    "daylight": {
+     "bg": "#fbfaf7",
+     "surface": "#ffffff",
+     "text": "#1f2328",
+     "muted": "#6b6f76",
+     "accent": "#b5632d",
+     "accent2": "#3e6b8a",
+     "line": "rgba(31,35,40,.1)",
+     "selection": "rgba(181,99,45,.2)"
+    },
+    "candlelight": {
+     "bg": "#f3e9d2",
+     "surface": "#f8f0dc",
+     "text": "#3b2f22",
+     "muted": "#6f5d48",
+     "accent": "#a3542a",
+     "accent2": "#6e5a2f",
+     "line": "rgba(59,47,34,.14)",
+     "selection": "rgba(163,84,42,.22)"
+    }
+   },
+   "fonts": {
+    "google": "family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,400&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400",
+    "display": "'Fraunces', Georgia, serif"
+   }
+  },
+  {
+   "id": "masquerade",
+   "name": "Masquerade",
+   "tagline": "Everyone wears a mask. Every page hides a lie.",
+   "inspiredBy": {
+    "title": "Perfectos Mentirosos",
+    "author": "Alex Mírez"
+   },
+   "goal": 1000,
+   "emblem": "\n<svg viewBox=\"0 0 100 100\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n  <g class=\"mq-ring\"><circle cx=\"50\" cy=\"50\" r=\"47\" stroke-dasharray=\"2 4\" opacity=\".5\"/></g>\n  <circle cx=\"50\" cy=\"50\" r=\"42\" opacity=\".35\"/>\n  <path d=\"M8 42 C 16 30, 34 27, 50 36 C 66 27, 84 30, 92 42 C 90 58, 78 68, 65 66 C 57 64, 53 58, 50 53 C 47 58, 43 64, 35 66 C 22 68, 10 58, 8 42 Z M22 45 C 28 39, 37 40, 42 46 C 36 51, 28 51, 22 45 Z M78 45 C 72 39, 63 40, 58 46 C 64 51, 72 51, 78 45 Z\" fill-rule=\"evenodd\" style=\"fill:currentColor;fill-opacity:.14\"/>\n  <path d=\"M30 31 C 34 22, 40 18, 44 17 M70 31 C 66 22, 60 18, 56 17\" opacity=\".7\"/>\n  <path d=\"M51 14 L48 26 L53 33 L47.5 44 L52 52 L48.5 61 L51.5 70 L49 86\" style=\"stroke:var(--iv-accent)\" stroke-width=\"1.8\"/>\n</svg>",
+   "moods": {
+    "midnight": {
+     "bg": "#0b090a",
+     "surface": "#151012",
+     "text": "#e9e0d4",
+     "muted": "#978a7c",
+     "accent": "#c8203d",
+     "accent2": "#c9a45c",
+     "line": "rgba(201,164,92,.18)",
+     "selection": "rgba(200,32,61,.38)",
+     "redact": "#5c0f1d"
+    },
+    "daylight": {
+     "bg": "#f6f2eb",
+     "surface": "#fffdf9",
+     "text": "#1c1517",
+     "muted": "#6f6460",
+     "accent": "#a3122b",
+     "accent2": "#9b7430",
+     "line": "rgba(28,21,23,.12)",
+     "selection": "rgba(163,18,43,.18)",
+     "redact": "#1c1517"
+    },
+    "candlelight": {
+     "bg": "#ecdfc4",
+     "surface": "#f3e8d0",
+     "text": "#2b1d17",
+     "muted": "#6e5a48",
+     "accent": "#8f1a26",
+     "accent2": "#86601f",
+     "line": "rgba(43,29,23,.16)",
+     "selection": "rgba(143,26,38,.2)",
+     "redact": "#2b1d17"
+    }
+   },
+   "fonts": {
+    "google": "family=Cinzel:wght@400;600&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital@1",
+    "display": "'Cinzel', 'Trajan Pro', Georgia, serif"
+   }
+  },
+  {
+   "id": "ventana",
+   "name": "Rainglass",
+   "tagline": "Rain on the glass, a lamp left on for you",
+   "inspiredBy": {
+    "title": "A través de mi ventana",
+    "author": "Ariana Godoy"
+   },
+   "goal": 2500,
+   "emblem": "<svg viewBox=\"0 0 100 100\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n  <circle cx=\"50\" cy=\"50\" r=\"46\" opacity=\".35\"/><rect x=\"28\" y=\"24\" width=\"44\" height=\"52\" rx=\"3\"/><path d=\"M50 24 V76 M28 50 H72\"/><path d=\"M36 32 l-3 6 M44 36 l-3 6 M60 30 l-3 6 M64 56 l-3 6 M37 58 l-3 6\" opacity=\".7\"/><circle cx=\"62\" cy=\"40\" r=\"3\" style=\"fill:var(--iv-accent);stroke:none\"/></svg>",
+   "moods": {
+    "midnight": {
+     "bg": "#0d1320",
+     "surface": "#141c2c",
+     "text": "#e3e8f2",
+     "muted": "#93a0b8",
+     "accent": "#f2b35b",
+     "accent2": "#86a9d9",
+     "line": "rgba(134,169,217,.16)",
+     "selection": "rgba(242,179,91,.3)"
+    },
+    "daylight": {
+     "bg": "#f4f6fa",
+     "surface": "#ffffff",
+     "text": "#18202e",
+     "muted": "#566275",
+     "accent": "#a8620c",
+     "accent2": "#2f5a92",
+     "line": "rgba(24,32,46,.1)",
+     "selection": "rgba(168,98,12,.18)"
+    },
+    "candlelight": {
+     "bg": "#efe6d3",
+     "surface": "#f5eddd",
+     "text": "#2a2620",
+     "muted": "#625947",
+     "accent": "#955a0c",
+     "accent2": "#3a5f8a",
+     "line": "rgba(42,38,32,.14)",
+     "selection": "rgba(149,90,12,.2)"
+    }
+   },
+   "fonts": {
+    "google": "family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lora:ital,wght@0,400;0,600;1,400",
+    "display": "'Playfair Display', Georgia, serif"
+   }
+  },
+  {
+   "id": "culpa",
+   "name": "Asphalt",
+   "tagline": "Chrome, sunset roads and a heartbeat at full speed",
+   "inspiredBy": {
+    "title": "Culpa mía",
+    "author": "Mercedes Ron"
+   },
+   "goal": 5000,
+   "emblem": "<svg viewBox=\"0 0 100 100\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n  <circle cx=\"50\" cy=\"50\" r=\"46\" opacity=\".35\"/><path d=\"M50 74 C 22 56 22 34 36 30 C 44 28 48 34 50 38 C 52 34 56 28 64 30 C 78 34 78 56 50 74 Z\" stroke-dasharray=\"5 4\"/><path d=\"M20 62 H34 M16 68 H30 M70 62 H84\" opacity=\".6\"/></svg>",
+   "moods": {
+    "midnight": {
+     "bg": "#0b0b0d",
+     "surface": "#15151a",
+     "text": "#ececf0",
+     "muted": "#93939e",
+     "accent": "#ff3550",
+     "accent2": "#c9ced8",
+     "line": "rgba(201,206,216,.14)",
+     "selection": "rgba(255,53,80,.3)"
+    },
+    "daylight": {
+     "bg": "#f5f5f7",
+     "surface": "#ffffff",
+     "text": "#141418",
+     "muted": "#5a5a64",
+     "accent": "#c8102e",
+     "accent2": "#4a5363",
+     "line": "rgba(20,20,24,.1)",
+     "selection": "rgba(200,16,46,.16)"
+    },
+    "candlelight": {
+     "bg": "#ede3d2",
+     "surface": "#f3eadb",
+     "text": "#241f1a",
+     "muted": "#62584b",
+     "accent": "#b0122a",
+     "accent2": "#5a5f6b",
+     "line": "rgba(36,31,26,.14)",
+     "selection": "rgba(176,18,42,.18)"
+    }
+   },
+   "fonts": {
+    "google": "family=Bebas+Neue&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400",
+    "display": "'Bebas Neue', Impact, sans-serif"
+   }
+  },
+  {
+   "id": "after",
+   "name": "Sepia",
+   "tagline": "Old libraries, ink stains and a love that never asks permission",
+   "inspiredBy": {
+    "title": "After",
+    "author": "Anna Todd"
+   },
+   "goal": 8000,
+   "emblem": "<svg viewBox=\"0 0 100 100\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n  <circle cx=\"50\" cy=\"50\" r=\"46\" opacity=\".35\"/><path d=\"M22 34 C 32 30 42 30 50 36 C 58 30 68 30 78 34 V70 C 68 66 58 66 50 72 C 42 66 32 66 22 70 Z\"/><path d=\"M50 36 V72\"/><path d=\"M66 22 C 66 28 70 30 70 34 A 4 4 0 0 1 62 34 C 62 30 66 28 66 22 Z\" style=\"fill:var(--iv-accent)\"/></svg>",
+   "moods": {
+    "midnight": {
+     "bg": "#15110d",
+     "surface": "#1e1813",
+     "text": "#ece2d3",
+     "muted": "#a39079",
+     "accent": "#cf8c42",
+     "accent2": "#a3b0a0",
+     "line": "rgba(207,140,66,.16)",
+     "selection": "rgba(207,140,66,.3)"
+    },
+    "daylight": {
+     "bg": "#f7f1e6",
+     "surface": "#fffaf1",
+     "text": "#2a2119",
+     "muted": "#665847",
+     "accent": "#8a4f1a",
+     "accent2": "#4f5f55",
+     "line": "rgba(42,33,25,.12)",
+     "selection": "rgba(138,79,26,.18)"
+    },
+    "candlelight": {
+     "bg": "#eadcc0",
+     "surface": "#f1e5cc",
+     "text": "#2b2016",
+     "muted": "#655440",
+     "accent": "#7f4512",
+     "accent2": "#4c5a50",
+     "line": "rgba(43,32,22,.15)",
+     "selection": "rgba(127,69,18,.2)"
+    }
+   },
+   "fonts": {
+    "google": "family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,600;1,400",
+    "display": "'Libre Baskerville', Georgia, serif"
+   }
+  },
+  {
+   "id": "boulevard",
+   "name": "Dusk Avenue",
+   "tagline": "Pastel dusk, streetlights, and words that stay",
+   "inspiredBy": {
+    "title": "Boulevard",
+    "author": "Flor M. Salvador"
+   },
+   "goal": 12000,
+   "emblem": "<svg viewBox=\"0 0 100 100\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n  <circle cx=\"50\" cy=\"50\" r=\"46\" opacity=\".35\"/><path d=\"M40 80 V36 C 40 26 54 24 58 32\"/><path d=\"M52 32 H64 L60 40 H56 Z\" style=\"fill:var(--iv-accent);fill-opacity:.35\"/><path d=\"M34 80 H46\"/><path d=\"M62 56 L82 48 L70 66 L68 58 Z\"/></svg>",
+   "moods": {
+    "midnight": {
+     "bg": "#141226",
+     "surface": "#1d1a33",
+     "text": "#ebe7f5",
+     "muted": "#a09ab9",
+     "accent": "#ffb4a2",
+     "accent2": "#a8c8ff",
+     "line": "rgba(168,200,255,.15)",
+     "selection": "rgba(255,180,162,.3)"
+    },
+    "daylight": {
+     "bg": "#f6f3fb",
+     "surface": "#ffffff",
+     "text": "#1f1b2e",
+     "muted": "#5b5570",
+     "accent": "#b84d63",
+     "accent2": "#456ab0",
+     "line": "rgba(31,27,46,.1)",
+     "selection": "rgba(184,77,99,.16)"
+    },
+    "candlelight": {
+     "bg": "#efe3d6",
+     "surface": "#f5ebe0",
+     "text": "#2a2230",
+     "muted": "#625866",
+     "accent": "#a3415a",
+     "accent2": "#4a659a",
+     "line": "rgba(42,34,48,.14)",
+     "selection": "rgba(163,65,90,.18)"
+    }
+   },
+   "fonts": {
+    "google": "family=Josefin+Sans:wght@300;600&family=Literata:ital,opsz,wght@0,7..72,400;1,7..72,400&family=Dancing+Script:wght@500",
+    "display": "'Josefin Sans', 'Helvetica Neue', sans-serif"
+   }
+  },
+  {
+   "id": "susurro",
+   "name": "Whisper",
+   "tagline": "Lilac summers, seashells and secrets said softly",
+   "inspiredBy": {
+    "title": "Dímelo bajito",
+    "author": "Mercedes Ron"
+   },
+   "goal": 17000,
+   "emblem": "<svg viewBox=\"0 0 100 100\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n  <circle cx=\"50\" cy=\"50\" r=\"46\" opacity=\".35\"/><path d=\"M50 74 L24 40 C 34 26 66 26 76 40 Z\"/><path d=\"M50 74 L36 34 M50 74 L50 30 M50 74 L64 34\"/><path d=\"M44 78 H56\"/></svg>",
+   "moods": {
+    "midnight": {
+     "bg": "#16121f",
+     "surface": "#1f1a2b",
+     "text": "#eee8f6",
+     "muted": "#a59cb8",
+     "accent": "#c9a7ff",
+     "accent2": "#f4d6a8",
+     "line": "rgba(201,167,255,.15)",
+     "selection": "rgba(201,167,255,.3)"
+    },
+    "daylight": {
+     "bg": "#f7f4fb",
+     "surface": "#ffffff",
+     "text": "#221c2c",
+     "muted": "#5f566f",
+     "accent": "#7346c0",
+     "accent2": "#94702f",
+     "line": "rgba(34,28,44,.1)",
+     "selection": "rgba(115,70,192,.16)"
+    },
+    "candlelight": {
+     "bg": "#eee4da",
+     "surface": "#f4ebe2",
+     "text": "#2a2230",
+     "muted": "#645868",
+     "accent": "#6a3fae",
+     "accent2": "#87652c",
+     "line": "rgba(42,34,48,.14)",
+     "selection": "rgba(106,63,174,.18)"
+    }
+   },
+   "fonts": {
+    "google": "family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Spectral:ital,wght@0,400;0,600;1,400",
+    "display": "'Cormorant Garamond', Georgia, serif"
+   }
+  },
+  {
+   "id": "rancho",
+   "name": "Sunflower",
+   "tagline": "Big skies, denim, a house full of noise",
+   "inspiredBy": {
+    "title": "My Life with the Walter Boys",
+    "author": "Ali Novak"
+   },
+   "goal": 23000,
+   "emblem": "<svg viewBox=\"0 0 100 100\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n  <circle cx=\"50\" cy=\"50\" r=\"46\" opacity=\".35\"/><circle cx=\"50\" cy=\"50\" r=\"11\" style=\"fill:var(--iv-accent);fill-opacity:.3\"/><ellipse cx=\"50\" cy=\"28\" rx=\"5\" ry=\"11\" transform=\"rotate(0 50 50)\"/><ellipse cx=\"50\" cy=\"28\" rx=\"5\" ry=\"11\" transform=\"rotate(30 50 50)\"/><ellipse cx=\"50\" cy=\"28\" rx=\"5\" ry=\"11\" transform=\"rotate(60 50 50)\"/><ellipse cx=\"50\" cy=\"28\" rx=\"5\" ry=\"11\" transform=\"rotate(90 50 50)\"/><ellipse cx=\"50\" cy=\"28\" rx=\"5\" ry=\"11\" transform=\"rotate(120 50 50)\"/><ellipse cx=\"50\" cy=\"28\" rx=\"5\" ry=\"11\" transform=\"rotate(150 50 50)\"/><ellipse cx=\"50\" cy=\"28\" rx=\"5\" ry=\"11\" transform=\"rotate(180 50 50)\"/><ellipse cx=\"50\" cy=\"28\" rx=\"5\" ry=\"11\" transform=\"rotate(210 50 50)\"/><ellipse cx=\"50\" cy=\"28\" rx=\"5\" ry=\"11\" transform=\"rotate(240 50 50)\"/><ellipse cx=\"50\" cy=\"28\" rx=\"5\" ry=\"11\" transform=\"rotate(270 50 50)\"/><ellipse cx=\"50\" cy=\"28\" rx=\"5\" ry=\"11\" transform=\"rotate(300 50 50)\"/><ellipse cx=\"50\" cy=\"28\" rx=\"5\" ry=\"11\" transform=\"rotate(330 50 50)\"/></svg>",
+   "moods": {
+    "midnight": {
+     "bg": "#121510",
+     "surface": "#1a1e17",
+     "text": "#ecebdf",
+     "muted": "#a3a58f",
+     "accent": "#f4c430",
+     "accent2": "#86a7cb",
+     "line": "rgba(244,196,48,.14)",
+     "selection": "rgba(244,196,48,.28)"
+    },
+    "daylight": {
+     "bg": "#fbf8ee",
+     "surface": "#ffffff",
+     "text": "#1f2119",
+     "muted": "#5a5d4d",
+     "accent": "#8f6800",
+     "accent2": "#3e6390",
+     "line": "rgba(31,33,25,.1)",
+     "selection": "rgba(143,104,0,.18)"
+    },
+    "candlelight": {
+     "bg": "#f0e5c8",
+     "surface": "#f6edd6",
+     "text": "#262416",
+     "muted": "#605a44",
+     "accent": "#7f5d00",
+     "accent2": "#3e5f86",
+     "line": "rgba(38,36,22,.14)",
+     "selection": "rgba(127,93,0,.2)"
+    }
+   },
+   "fonts": {
+    "google": "family=Bitter:ital,wght@0,400;0,700;1,400&family=Merriweather:ital,wght@0,400;0,700;1,400&family=Caveat:wght@600",
+    "display": "'Bitter', Georgia, serif"
+   }
+  },
+  {
+   "id": "cabina",
+   "name": "Carnival",
+   "tagline": "String lights, bubblegum and a summer you won’t forget",
+   "inspiredBy": {
+    "title": "The Kissing Booth",
+    "author": "Beth Reekles"
+   },
+   "goal": 30000,
+   "emblem": "<svg viewBox=\"0 0 100 100\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n  <circle cx=\"50\" cy=\"50\" r=\"46\" opacity=\".35\"/><path d=\"M30 46 C 38 36 46 40 50 44 C 54 40 62 36 70 46 C 62 50 58 60 50 60 C 42 60 38 50 30 46 Z\" style=\"fill:var(--iv-accent);fill-opacity:.35\"/><path d=\"M30 46 C 42 52 58 52 70 46\"/><path d=\"M18 26 Q 50 40 82 26\" stroke-dasharray=\"1 7\" stroke-width=\"4\"/></svg>",
+   "moods": {
+    "midnight": {
+     "bg": "#1a0f17",
+     "surface": "#241520",
+     "text": "#f6e9f0",
+     "muted": "#b89cab",
+     "accent": "#ff5c8a",
+     "accent2": "#ffd166",
+     "line": "rgba(255,92,138,.16)",
+     "selection": "rgba(255,92,138,.3)"
+    },
+    "daylight": {
+     "bg": "#fff5f8",
+     "surface": "#ffffff",
+     "text": "#2a1520",
+     "muted": "#6a4d5d",
+     "accent": "#c8175a",
+     "accent2": "#9a6c00",
+     "line": "rgba(42,21,32,.1)",
+     "selection": "rgba(200,23,90,.16)"
+    },
+    "candlelight": {
+     "bg": "#f3e3d8",
+     "surface": "#f8ebe2",
+     "text": "#2b1a1f",
+     "muted": "#68505b",
+     "accent": "#ab1549",
+     "accent2": "#836000",
+     "line": "rgba(43,26,31,.14)",
+     "selection": "rgba(171,21,73,.18)"
+    }
+   },
+   "fonts": {
+    "google": "family=Fredoka:wght@400;600&family=Nunito:ital,wght@0,400;0,700;1,400&family=Pacifico",
+    "display": "'Fredoka', 'Nunito', sans-serif"
+   }
+  },
+  {
+   "id": "ring",
+   "name": "Knockout",
+   "tagline": "Neon ropes, red lights and a heart that fights back",
+   "inspiredBy": {
+    "title": "Perfect Addiction",
+    "author": "Claudia Tan"
+   },
+   "goal": 38000,
+   "emblem": "<svg viewBox=\"0 0 100 100\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n  <circle cx=\"50\" cy=\"50\" r=\"46\" opacity=\".35\"/><path d=\"M24 34 V72 M76 34 V72\"/><path d=\"M24 44 H76 M24 54 H76 M24 64 H76\" style=\"stroke:var(--iv-accent)\"/><path d=\"M50 22 L53 30 L61 30 L55 35 L57 43 L50 38 L43 43 L45 35 L39 30 L47 30 Z\" style=\"fill:var(--iv-accent2);fill-opacity:.4\"/></svg>",
+   "moods": {
+    "midnight": {
+     "bg": "#0c0a0a",
+     "surface": "#161212",
+     "text": "#f0e8e6",
+     "muted": "#a8958f",
+     "accent": "#ff3b30",
+     "accent2": "#ffd60a",
+     "line": "rgba(255,59,48,.16)",
+     "selection": "rgba(255,59,48,.3)"
+    },
+    "daylight": {
+     "bg": "#f6f4f3",
+     "surface": "#ffffff",
+     "text": "#1a1414",
+     "muted": "#5f5553",
+     "accent": "#c22a20",
+     "accent2": "#806500",
+     "line": "rgba(26,20,20,.1)",
+     "selection": "rgba(194,42,32,.16)"
+    },
+    "candlelight": {
+     "bg": "#ede1d4",
+     "surface": "#f3e9de",
+     "text": "#241a17",
+     "muted": "#62544b",
+     "accent": "#a91f16",
+     "accent2": "#735b00",
+     "line": "rgba(36,26,23,.14)",
+     "selection": "rgba(169,31,22,.18)"
+    }
+   },
+   "fonts": {
+    "google": "family=Anton&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400",
+    "display": "'Anton', Impact, sans-serif"
+   }
+  },
+  {
+   "id": "humo",
+   "name": "Ash",
+   "tagline": "Smoke over the city, embers and circuits",
+   "inspiredBy": {
+    "title": "Ciudades de humo",
+    "author": "Joana Marcús"
+   },
+   "goal": 47000,
+   "emblem": "<svg viewBox=\"0 0 100 100\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n  <circle cx=\"50\" cy=\"50\" r=\"46\" opacity=\".35\"/><path d=\"M50 22 L74 36 V64 L50 78 L26 64 V36 Z\"/><path d=\"M50 22 V40 M74 64 L58 56 M26 64 L42 56\" style=\"stroke:var(--iv-accent2)\"/><circle cx=\"50\" cy=\"50\" r=\"7\" style=\"fill:var(--iv-accent);fill-opacity:.5\"/></svg>",
+   "moods": {
+    "midnight": {
+     "bg": "#111214",
+     "surface": "#1a1b1e",
+     "text": "#e6e6e3",
+     "muted": "#979894",
+     "accent": "#ff7a2f",
+     "accent2": "#6fd3c7",
+     "line": "rgba(111,211,199,.14)",
+     "selection": "rgba(255,122,47,.28)"
+    },
+    "daylight": {
+     "bg": "#f3f3f1",
+     "surface": "#ffffff",
+     "text": "#1b1c1e",
+     "muted": "#585956",
+     "accent": "#b84d14",
+     "accent2": "#1d776e",
+     "line": "rgba(27,28,30,.1)",
+     "selection": "rgba(184,77,20,.16)"
+    },
+    "candlelight": {
+     "bg": "#eae2d4",
+     "surface": "#f1eadf",
+     "text": "#24211c",
+     "muted": "#615a4e",
+     "accent": "#a14411",
+     "accent2": "#28675f",
+     "line": "rgba(36,33,28,.14)",
+     "selection": "rgba(161,68,17,.18)"
+    }
+   },
+   "fonts": {
+    "google": "family=Rajdhani:wght@500;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400",
+    "display": "'Rajdhani', 'Helvetica Neue', sans-serif"
+   }
+  },
+  {
+   "id": "toits",
+   "name": "Rooftops",
+   "tagline": "Zinc roofs, blush skies and coffee for two",
+   "inspiredBy": {
+    "title": "Viens, on s’aime",
+    "author": "Morgane Moncomble"
+   },
+   "goal": 57000,
+   "emblem": "<svg viewBox=\"0 0 100 100\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n  <circle cx=\"50\" cy=\"50\" r=\"46\" opacity=\".35\"/><path d=\"M18 70 H82 M22 70 V52 L34 42 L46 52 V70 M46 70 V46 L60 36 L74 46 V70\"/><path d=\"M64 40 V30 H69 V44\"/><circle cx=\"72\" cy=\"24\" r=\"6\" style=\"fill:var(--iv-accent);fill-opacity:.4\"/></svg>",
+   "moods": {
+    "midnight": {
+     "bg": "#131418",
+     "surface": "#1c1d23",
+     "text": "#ecebee",
+     "muted": "#9e9da7",
+     "accent": "#f2a7b5",
+     "accent2": "#a9b4c2",
+     "line": "rgba(169,180,194,.15)",
+     "selection": "rgba(242,167,181,.28)"
+    },
+    "daylight": {
+     "bg": "#f7f5f5",
+     "surface": "#ffffff",
+     "text": "#1f1e22",
+     "muted": "#5a5961",
+     "accent": "#b04862",
+     "accent2": "#4f5b6b",
+     "line": "rgba(31,30,34,.1)",
+     "selection": "rgba(176,72,98,.16)"
+    },
+    "candlelight": {
+     "bg": "#eee4dc",
+     "surface": "#f5ece5",
+     "text": "#26221f",
+     "muted": "#635a53",
+     "accent": "#9e3f58",
+     "accent2": "#4f5866",
+     "line": "rgba(38,34,31,.14)",
+     "selection": "rgba(158,63,88,.18)"
+    }
+   },
+   "fonts": {
+    "google": "family=Italiana&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400",
+    "display": "'Italiana', Georgia, serif"
+   }
+  }
+ ]
+}
