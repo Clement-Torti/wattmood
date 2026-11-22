@@ -66,3 +66,9 @@ footer { padding: 30px 0 50px; border-top: 1px solid var(--line); color: var(--m
 .legal h2 { font-size: 24px; margin-top: 28px; }
 .legal p, .legal li { color: #d7d0c9; }
 @media (max-width: 860px) { .hero { grid-template-columns: 1fr; } .features, .how { grid-template-columns: 1fr; } }
+.track .mine { position: absolute; top: -3px; bottom: -3px; border-radius: 0 99px 99px 0; background: repeating-linear-gradient(135deg, var(--gold) 0 5px, #ffd98f 5px 10px);
+  box-shadow: 0 0 18px var(--gold); transition: width 1s cubic-bezier(.2, .8, .2, 1); }
+.track .mine em { position: absolute; bottom: 18px; left: 100%; transform: translateX(-50%) translateY(6px); white-space: nowrap; font: 800 12px/1 system-ui, sans-serif; font-style: normal;
+  color: #1a1208; background: var(--gold); padding: 4px 8px; border-radius: 99px; opacity: 0; transition: opacity .4s ease .7s, transform .4s ease .7s; }
+.track .mine em::after { content: ""; position: absolute; left: 50%; top: 100%; transform: translateX(-50%); border: 5px solid transparent; border-top-color: var(--gold); }
+.track .mine.in em { opacity: 1; transform: translateX(-50%); }
