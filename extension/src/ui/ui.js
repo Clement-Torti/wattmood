@@ -33,9 +33,14 @@
       host.id = 'wattmood-ui';
       host.style.cssText = 'position:fixed;top:0;left:0;width:0;height:0;z-index:1040;';
       const shadow = host.attachShadow({ mode: 'open' });
+      // invisible until its stylesheet has loaded: otherwise the panel, points card and windows show unstyled for a moment
+      host.style.visibility = 'hidden';
       const link = document.createElement('link');
       link.rel = 'stylesheet';
       link.href = chrome.runtime.getURL('src/ui/ui.css');
+      const reveal = () => { host.style.visibility = ''; };
+      link.addEventListener('load', reveal, { once: true });
+      link.addEventListener('error', reveal, { once: true });
       shadow.appendChild(link);
       const ui = (this.ui = h('div', 'ui'));
       ui.innerHTML = `
