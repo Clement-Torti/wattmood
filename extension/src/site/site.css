@@ -37,6 +37,9 @@ html.iv-on [data-wm-fg="text"] { color: var(--iv-text) !important; }
 html.iv-on [data-wm-fg="muted"] { color: var(--iv-muted) !important; }
 html.iv-on [data-wm-fg="brand"] { color: var(--iv-accent) !important; }
 html.iv-on [data-wm-b] { border-color: var(--iv-line) !important; }
+/* decorative section art: blended into the skin's background (dark in dark moods, shapes kept) */
+html.iv-on [data-wm-deco] { background-color: var(--iv-bg) !important; background-blend-mode: multiply; }
+html.iv-on[data-mood="midnight"] [data-wm-deco] { background-color: var(--iv-surface) !important; }
 html.iv-on [data-wm-bg="ink"] [data-wm-fg="text"] { color: var(--iv-bg) !important; }
 
 /* form fields */

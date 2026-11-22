@@ -46,9 +46,15 @@
           const r = el.getBoundingClientRect();
           out.bg = r.width >= vw * 0.85 && r.height >= 160 ? 'page' : 'card';
         } else if (x.l >= 0.6) out.bg = 'raised';
-        else if (x.l <= 0.22) out.bg = 'ink';
+        else if (x.l <= 0.22) {
+          // small dark things (buttons, badges) are inverted so they stay visible; big dark bands become surfaces
+          const r = el.getBoundingClientRect();
+          out.bg = r.width * r.height > 60000 ? 'card' : 'ink';
+        }
       } else if (isBrand(bg)) out.bg = 'brand';
     }
+    // Wattpad's decorative section art (light shapes painted as CSS background images, lazy-loaded on scroll)
+    if (cs.backgroundImage !== 'none' && /url\(/.test(cs.backgroundImage) && /wp-web-assets|\.svg/i.test(cs.backgroundImage)) out.deco = true;
     const fg = parse(cs.color);
     if (fg && fg.a > 0.3) {
       const x = hsl(fg);
@@ -108,6 +114,7 @@
       if (r.bg) el.dataset.wmBg = r.bg;
       if (r.fg) el.dataset.wmFg = r.fg;
       if (r.b) el.dataset.wmB = '';
+      if (r.deco) el.dataset.wmDeco = '';
     }
     if (queue.length) schedule();
   }
@@ -147,7 +154,7 @@
           else if (rec.type === 'attributes' && rec.target.dataset && rec.target.dataset.wmC && rec.attributeName === 'class' && !ownChange(rec)) {
             // a component changed state (e.g. selected tab) → measure it again
             const el = rec.target;
-            delete el.dataset.wmC; delete el.dataset.wmBg; delete el.dataset.wmFg; delete el.dataset.wmB;
+            delete el.dataset.wmC; delete el.dataset.wmBg; delete el.dataset.wmFg; delete el.dataset.wmB; delete el.dataset.wmDeco;
             queue.push(el);
             schedule();
           }
@@ -157,7 +164,7 @@
     },
     /** Elements measured before their stylesheet arrived: measure again those that got no role. */
     recheck(sync) {
-      document.querySelectorAll('[data-wm-c]:not([data-wm-bg]):not([data-wm-fg])').forEach((el) => { delete el.dataset.wmC; queue.push(el); });
+      document.querySelectorAll('[data-wm-c]:not([data-wm-bg]):not([data-wm-fg]):not([data-wm-deco])').forEach((el) => { delete el.dataset.wmC; queue.push(el); });
       if (sync) { while (queue.length) process(); } else schedule();
     },
     stop() {
