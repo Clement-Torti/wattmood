@@ -52,6 +52,7 @@
         "src/reader/chapter.js",
         "src/ui/pointline.js",
         "src/ui/ui.js",
+        "src/ui/share.js",
         "src/main.js"
       ],
       "css": [

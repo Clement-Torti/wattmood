@@ -112,7 +112,7 @@ function record_(ev) {
   const lang = String(ev.lang || '').slice(0, 10);
   const time = new Date(Number(ev.at) || Date.now());
   if (ev.type === 'install' || ev.type === 'share') {
-    sheet_('Events').appendRow([time, ev.type, code, lang, '']);
+    sheet_('Events').appendRow([time, ev.type, code, lang, String(ev.channel || '')]);
   } else if (ev.type === 'pledge') {
     sheet_('Pledges').appendRow([time, code, Number(ev.amount) || 0, String(ev.currency || ''), Number(ev.eur) || 0, Number(ev.points) || 0, String(ev.coupon || '')]);
   } else if (ev.type === 'feedback') {
@@ -172,7 +172,7 @@ function computeState_() {
   ev.forEach((r) => {
     const day = Utilities.formatDate(new Date(r[0]), 'UTC', 'yyyy-MM-dd');
     if (r[1] === 'install' && r[2]) installers.add(r[2]); // one install per code
-    if (r[1] === 'share' && r[2]) shares.add(r[2] + '|' + day); // one share per code per day
+    if (r[1] === 'share' && r[2]) shares.add(r[2]); // one share per person, ever (only the first one counts)
   });
   const don = sheet_('Donations').getDataRange().getValues().slice(1);
   const donationPoints = don.reduce((a, r) => a + (Number(r[3]) || Math.floor((Number(r[2]) || 0) * 10)), 0);

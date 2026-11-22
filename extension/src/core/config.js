@@ -14,7 +14,6 @@
     POINTS: { share: 5, install: 10, perEuro: 10 },
     PICK_ONE_EUR: 5, // donation ≥ this unlocks one skin of the donor's choice
     ALL_SKINS_EUR: 10, // donation ≥ this unlocks every skin for the donor
-    SHARE_COOLDOWN_H: 24, // a share counts once per day per user
     REFRESH_MIN: 20, // how often the points line is refreshed
 
     // presets[0] ≈ 1 € / 1 $ is the default; the next ones reach the 5 € (pick a skin) and 10 € (all skins) tiers.

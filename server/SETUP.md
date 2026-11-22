@@ -50,7 +50,7 @@ After you change `Code.gs`, use **Deploy ▸ Manage deployments ▸ Edit ▸ Ver
 ## How points are counted
 
 ```
-total = 10 × (unique installs) + 5 × (unique shares per person per day) + sum of the Donations "points" column
+total = 10 × (unique installs) + 5 × (people who shared at least once) + sum of the Donations "points" column
 ```
 
 **Known limit:** install and share events come from the extension and can't be verified, so a determined person could

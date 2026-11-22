@@ -78,11 +78,8 @@
     const act = e.target.closest('[data-act]');
     if (!act) return;
     const a = act.dataset.act;
-    if (a === 'share') {
-      const r = await IV.community.share();
-      $('#msg').textContent = r === 'counted' ? t('shareCopied') : t('shareLimit');
-      if (r === 'counted') setTimeout(() => refresh(true), 2500);
-    } else if (a === 'donate') toPage('wm:donate');
+    if (a === 'share') toPage('wm:share');
+    else if (a === 'donate') toPage('wm:donate');
     else if (a === 'coupon') toPage('wm:coupon');
     else if (a === 'feedback') toPage('wm:feedback');
   });

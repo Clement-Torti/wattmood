@@ -101,6 +101,9 @@
     const batch = queue.splice(0, CHUNK);
     const html = document.documentElement;
     const wasOn = html.classList.contains('iv-on');
+    // transitions off while the skin is briefly lifted: otherwise every transitioning element (top bar,
+    // paragraphs…) would animate back from Wattpad's white to the skin after each measurement
+    html.classList.add('wm-measure');
     if (wasOn) html.classList.remove('iv-on');
     const vw = html.clientWidth || innerWidth;
     const results = [];
@@ -109,6 +112,8 @@
       results.push([el, classify(el, vw)]);
     }
     if (wasOn) html.classList.add('iv-on');
+    void html.offsetHeight; // restyle everything with the skin back on, still without transitions
+    html.classList.remove('wm-measure');
     for (const [el, r] of results) {
       el.dataset.wmC = '1';
       if (r.bg) el.dataset.wmBg = r.bg;
@@ -118,6 +123,37 @@
     }
     if (queue.length) schedule();
   }
+
+  /**
+   * Hover colours. Wattpad changes some backgrounds only on :hover (often with a slow transition), which a
+   * measurement at rest can't see. The first time the pointer enters an element, measure the hovered path
+   * (ancestors + the card's descendants) with transitions paused, and map those colours to the skin.
+   */
+  function measureHover(target) {
+    if (!running || !document.documentElement.classList.contains('iv-on')) return;
+    const els = [];
+    for (let el = target, d = 0; el && el.nodeType === 1 && el !== document.body && d < 7; el = el.parentElement, d++) {
+      if (el.id === 'wattmood-ui' || el.closest('#wattmood-ui')) return;
+      if (!el.dataset.wmH) els.push(el);
+      if (d < 4) for (const c of el.querySelectorAll('*')) { if (els.length > 80) break; if (!c.dataset.wmH && !SKIP.has(c.tagName)) els.push(c); }
+    }
+    if (!els.length) return;
+    const html = document.documentElement;
+    html.classList.add('wm-measure'); // transitions off: nothing may start animating towards Wattpad's colours
+    html.classList.remove('iv-on');
+    const vw = html.clientWidth || innerWidth;
+    const res = els.map((el) => [el, classify(el, vw)]);
+    html.classList.add('iv-on');
+    for (const [el, r] of res) {
+      el.dataset.wmH = '1';
+      if (r.bg && r.bg !== el.dataset.wmBg) el.dataset.wmHbg = r.bg;
+      if (r.fg && r.fg !== el.dataset.wmFg) el.dataset.wmHfg = r.fg;
+    }
+    void target.getBoundingClientRect(); // apply the new styles while transitions are still off
+    for (const [el] of res) getComputedStyle(el).backgroundColor;
+    html.classList.remove('wm-measure');
+  }
+  if (typeof document !== 'undefined') document.addEventListener('mouseover', (e) => measureHover(e.target), true);
 
   /** Class changes made by WattMood itself (iv-*, is-*, wm-*) don't need a new measurement. */
   function ownChange(rec) {

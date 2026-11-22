@@ -37,6 +37,15 @@ html.iv-on [data-wm-fg="text"] { color: var(--iv-text) !important; }
 html.iv-on [data-wm-fg="muted"] { color: var(--iv-muted) !important; }
 html.iv-on [data-wm-fg="brand"] { color: var(--iv-accent) !important; }
 html.iv-on [data-wm-b] { border-color: var(--iv-line) !important; }
+/* hover-only colours (measured on first hover by recolor.js) */
+html.iv-on [data-wm-hbg="page"]:hover, html.iv-on [data-wm-hbg="card"]:hover { background-color: var(--iv-surface) !important; }
+html.iv-on [data-wm-hbg="raised"]:hover { background-color: color-mix(in srgb, var(--iv-text) 10%, var(--iv-surface)) !important; }
+html.iv-on [data-wm-hbg="ink"]:hover { background-color: var(--iv-text) !important; }
+html.iv-on [data-wm-hbg="brand"]:hover { background-color: var(--iv-accent) !important; }
+html.iv-on [data-wm-hfg="text"]:hover { color: var(--iv-text) !important; }
+html.iv-on [data-wm-hfg="muted"]:hover { color: var(--iv-muted) !important; }
+html.iv-on [data-wm-hfg="brand"]:hover { color: var(--iv-accent) !important; }
+html.wm-measure, html.wm-measure *, html.wm-measure *::before, html.wm-measure *::after { transition: none !important; }
 /* decorative section art: blended into the skin's background (dark in dark moods, shapes kept) */
 html.iv-on [data-wm-deco] { background-color: var(--iv-bg) !important; background-blend-mode: multiply; }
 html.iv-on[data-mood="midnight"] [data-wm-deco] { background-color: var(--iv-surface) !important; }
@@ -66,4 +75,4 @@ body:has(.bottom-banner.show) ~ #wattmood-ui { --iv-safe-bottom: 84px; }
 
 /* first paint: the page waits on the skin's background until the colour pass has run (≤ 2.5 s fail-safe) */
 html.iv-on.wm-pending body { opacity: 0 !important; }
-html.wm-boot *, html.wm-boot *::before, html.wm-boot *::after { transition: none !important; } /* no fade from Wattpad's white while the skin is applied */
+html.wm-boot, html.wm-boot *, html.wm-boot *::before, html.wm-boot *::after { transition: none !important; } /* no fade from Wattpad's white while the skin is applied */

@@ -63,6 +63,7 @@
       if (ask === 'donate') this.ui.openDonate();
       else if (ask === 'coupon') this.ui.openCoupon();
       else if (ask === 'feedback') this.ui.openFeedback();
+      else if (ask === 'share') IV.openShare(this.ui);
     }
 
     /* ---------------------------------------------------------------- */
@@ -305,5 +306,6 @@
     else if (msg.type === 'wm:donate') { app.ui.openDonate(); reply({ ok: true }); }
     else if (msg.type === 'wm:feedback') { app.ui.openFeedback(); reply({ ok: true }); }
     else if (msg.type === 'wm:coupon') { app.ui.openCoupon(); reply({ ok: true }); }
+    else if (msg.type === 'wm:share') { IV.openShare(app.ui); reply({ ok: true }); }
   });
 })();

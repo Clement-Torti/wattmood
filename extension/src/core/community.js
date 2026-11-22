@@ -110,21 +110,24 @@
       return !!(s && s.unlocked);
     },
 
-    /** Share: native share sheet or clipboard. Counts once per SHARE_COOLDOWN_H. Returns 'counted' | 'cooldown'. */
-    async share() {
+    /** Referral link for a channel (whatsapp, tiktok…), carrying the anonymous code. */
+    async shareLink(channel) {
       const code = await community.code();
-      const url = `${C().SITE_URL}?ref=${encodeURIComponent(code)}`;
-      const text = `${IV.t('shareText')} ${url}`;
-      try {
-        if (navigator.share && /Mobi|Android/i.test(navigator.userAgent)) await navigator.share({ title: 'WattMood', text, url });
-        else await navigator.clipboard.writeText(text);
-      } catch (e) {
-        try { await navigator.clipboard.writeText(text); } catch (_) { /* clipboard blocked */ }
-      }
-      const { wmLastShare = 0 } = await local.get('wmLastShare');
-      if (Date.now() - wmLastShare < C().SHARE_COOLDOWN_H * 3600e3) return 'cooldown';
-      await local.set({ wmLastShare: Date.now() });
-      await send({ type: 'wm:event', event: { type: 'share' } });
+      return `${C().SITE_URL}?ref=${encodeURIComponent(code)}&utm_source=${encodeURIComponent(channel || 'link')}`;
+    },
+    async hasShared() {
+      const { wmShared } = await chrome.storage.sync.get('wmShared');
+      return !!wmShared;
+    },
+    /**
+     * Record a share. The +5 is counted only the first time this person shares (ever; also enforced by the sheet).
+     * Returns 'counted' | 'already'.
+     */
+    async recordShare(channel) {
+      if (community._sharing || (await community.hasShared())) return 'already';
+      community._sharing = true; // two quick clicks can't both count
+      await chrome.storage.sync.set({ wmShared: Date.now() });
+      await send({ type: 'wm:event', event: { type: 'share', channel: channel || '' } });
       return 'counted';
     },
 

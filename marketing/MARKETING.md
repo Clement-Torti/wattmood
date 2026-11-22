@@ -34,7 +34,7 @@ This is a living document. Update the **Log** at the bottom after every campaign
 
 ## 3. The growth engine: the points line
 
-Points: **install +10 · share +5 per day · each €1 donated +10**.
+Points: **install +10 · share +5 (first share only) · each €1 donated +10**.
 
 - **Goals:** each book skin has a goal. The default goals are in `extension/src/core/config.js` and can be changed live from the sheet's **Goals** tab.
 - **First goal reachable within days:** Masquerade (Perfectos Mentirosos) is at 1,000 pts, about 100 installs. The first unlock is the first viral moment, so it must come early.

@@ -212,7 +212,10 @@
     /* Modals                                                            */
     /* ---------------------------------------------------------------- */
     openModal(html, cls = '') {
-      const m = this.$('.modal');
+      // fresh element each time: handlers added by a previous window must not fire again
+      const old = this.$('.modal');
+      const m = old.cloneNode(false);
+      old.replaceWith(m);
       m.className = `modal ${cls}`;
       m.innerHTML = `<button class="x modal-x" data-act="modal-close" aria-label="${esc(t('close'))}">${ICON.close}</button>${html}`;
       this.$('.modal-wrap').classList.add('is-open');
@@ -462,11 +465,7 @@
           this.$('.pl').classList.toggle('is-open', open);
           btn.setAttribute('aria-expanded', String(open));
           if (open) { this.scrollLadder(); app.refreshPoints(false); }
-        } else if (act === 'share') {
-          const r = await IV.community.share();
-          this.toast(r === 'counted' ? t('shareCopied') : t('shareLimit'));
-          if (r === 'counted') setTimeout(() => app.refreshPoints(true), 2500);
-        } else if (act === 'donate') this.openDonate();
+        } else if (act === 'share') IV.openShare(this); else if (act === 'donate') this.openDonate();
         else if (act === 'feedback') this.openFeedback();
         else if (act === 'coupon') this.openCoupon();
         else if (act === 'modal-close') this.closeModal();
