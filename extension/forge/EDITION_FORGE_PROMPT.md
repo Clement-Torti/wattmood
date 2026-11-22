@@ -48,7 +48,7 @@ Use exactly this contract (the engine validates it; see `skins/masquerade.js` fo
   const IV = globalThis.WattMood;
   IV.registerEdition({
     id: 'kebab-case-id',                 // unique; also the file name
-    name: 'Evocative Name',              // 1–2 words; do NOT use the book's title or trademarks
+    name: 'Evocative Name',              // internal theme name — the skin is DISPLAYED under inspiredBy.title
     tagline: 'One line, under 60 chars',
     inspiredBy: { title: 'Book Title', author: 'Author' },
     tier: 'premium',                     // 'free' | 'premium'

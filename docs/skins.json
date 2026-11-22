@@ -53,7 +53,7 @@
   },
   {
    "id": "masquerade",
-   "name": "Masquerade",
+   "name": "Perfectos Mentirosos",
    "tagline": "Everyone wears a mask. Every page hides a lie.",
    "inspiredBy": {
     "title": "Perfectos Mentirosos",
@@ -103,7 +103,7 @@
   },
   {
    "id": "ventana",
-   "name": "Rainglass",
+   "name": "A través de mi ventana",
    "tagline": "Rain on the glass, a lamp left on for you",
    "inspiredBy": {
     "title": "A través de mi ventana",
@@ -150,7 +150,7 @@
   },
   {
    "id": "culpa",
-   "name": "Asphalt",
+   "name": "Culpa mía",
    "tagline": "Chrome, sunset roads and a heartbeat at full speed",
    "inspiredBy": {
     "title": "Culpa mía",
@@ -197,7 +197,7 @@
   },
   {
    "id": "after",
-   "name": "Sepia",
+   "name": "After",
    "tagline": "Old libraries, ink stains and a love that never asks permission",
    "inspiredBy": {
     "title": "After",
@@ -244,7 +244,7 @@
   },
   {
    "id": "boulevard",
-   "name": "Dusk Avenue",
+   "name": "Boulevard",
    "tagline": "Pastel dusk, streetlights, and words that stay",
    "inspiredBy": {
     "title": "Boulevard",
@@ -291,7 +291,7 @@
   },
   {
    "id": "susurro",
-   "name": "Whisper",
+   "name": "Dímelo bajito",
    "tagline": "Lilac summers, seashells and secrets said softly",
    "inspiredBy": {
     "title": "Dímelo bajito",
@@ -338,7 +338,7 @@
   },
   {
    "id": "rancho",
-   "name": "Sunflower",
+   "name": "My Life with the Walter Boys",
    "tagline": "Big skies, denim, a house full of noise",
    "inspiredBy": {
     "title": "My Life with the Walter Boys",
@@ -385,7 +385,7 @@
   },
   {
    "id": "cabina",
-   "name": "Carnival",
+   "name": "The Kissing Booth",
    "tagline": "String lights, bubblegum and a summer you won’t forget",
    "inspiredBy": {
     "title": "The Kissing Booth",
@@ -432,7 +432,7 @@
   },
   {
    "id": "ring",
-   "name": "Knockout",
+   "name": "Perfect Addiction",
    "tagline": "Neon ropes, red lights and a heart that fights back",
    "inspiredBy": {
     "title": "Perfect Addiction",
@@ -479,7 +479,7 @@
   },
   {
    "id": "humo",
-   "name": "Ash",
+   "name": "Ciudades de humo",
    "tagline": "Smoke over the city, embers and circuits",
    "inspiredBy": {
     "title": "Ciudades de humo",
@@ -526,7 +526,7 @@
   },
   {
    "id": "toits",
-   "name": "Rooftops",
+   "name": "Viens, on s’aime",
    "tagline": "Zinc roofs, blush skies and coffee for two",
    "inspiredBy": {
     "title": "Viens, on s’aime",

@@ -37,6 +37,11 @@
       console.warn(`[WattMood] Edition "${ed && ed.id}" rejected:`, problems.join('; '));
       return;
     }
+    // a skin inspired by a book is shown under the book's title (its creative name stays in ed.theme)
+    if (ed.inspiredBy && ed.inspiredBy.title && !ed.theme) {
+      ed.theme = ed.name;
+      ed.name = ed.inspiredBy.title;
+    }
     IV.editions.set(ed.id, ed);
   };
 

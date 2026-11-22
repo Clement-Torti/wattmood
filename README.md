@@ -56,8 +56,8 @@ Then run `node extension/tools/build-site.mjs` to refresh `docs/skins.json`.
 - `extension/forge/`: a prompt to draft a new skin from a book. Validate skins with
   `node extension/tools/check-edition.mjs extension/skins/books.js <id>` (contrast, SVG budget, timings).
 
-Rules: original art only, inspired by a book's mood. No covers, logos, character names or quotes, and never the book's
-title as the skin name.
+Rules: a book skin is shown under the book's title (clearer for readers) and labelled fan-made / not official.
+Art stays original: no covers, logos, character names or quotes.
 
 ## Publishing on the Chrome Web Store
 

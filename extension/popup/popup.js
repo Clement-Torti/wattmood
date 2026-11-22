@@ -45,7 +45,7 @@
         style="--c-bg:${m.bg};--c-acc:${m.accent};--c-acc2:${m.accent2};--c-text:${m.text}">
         <span class="sk-art">${IV.skinThumb(ed, 34)}</span>
         <span class="sk-name" style="font-family:${IV.esc(ed.fonts.display)}">${IV.esc(ed.name)}</span>
-        ${ed.inspiredBy ? `<span class="sk-from">${IV.esc(ed.inspiredBy.title)}</span>` : ''}
+        ${ed.inspiredBy ? `<span class="sk-from">${IV.esc(ed.inspiredBy.author)}</span>` : ''}
         ${badge ? `<span class="sk-badge">${s.unlocked ? '' : '🔒 '}${IV.esc(badge)}</span>` : ''}
       </button>`;
     }).join('');

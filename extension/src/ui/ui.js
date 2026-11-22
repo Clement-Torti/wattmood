@@ -153,7 +153,7 @@
           <span class="card-art">${ed.emblem || ''}</span>
           <span class="card-body">
             <span class="card-name">${esc(ed.name)}${state ? `<em class="${s.review ? 'review' : ''}">${s.unlocked ? '' : ICON.lock}${esc(state)}</em>` : ''}</span>
-            <span class="card-from">${ed.inspiredBy ? esc(t('inspiredBy', { book: ed.inspiredBy.title })) : esc(ed.tagline || '')}</span>
+            <span class="card-from">${ed.inspiredBy ? esc(t('inspiredBy', { book: ed.inspiredBy.author })) : esc(ed.tagline || '')}</span>
           </span></button>`;
       }).join('');
     }
@@ -261,7 +261,7 @@
         if (tier === 1 && locked.length) {
           $('.pick-box').innerHTML = `<div class="pick-title">🎁 ${esc(t('pickTitle'))}</div>
             <div class="pick-grid">${locked.map((x) => { const e = IV.getEdition(x.id); return `<button class="pick-skin${x.id === pick ? ' is-on' : ''}" data-pick="${x.id}" style="--c-bg:${e.moods.midnight.bg};--c-text:${e.moods.midnight.text};--c-acc2:${e.moods.midnight.accent2}">
-              ${thumb(x.id, 30)}<span class="pn" style="font-family:${esc(e.fonts.display)}">${esc(e.name)}</span>${e.inspiredBy ? `<span class="pf">${esc(e.inspiredBy.title)}</span>` : ''}</button>`; }).join('')}</div>
+              ${thumb(x.id, 30)}<span class="pn" style="font-family:${esc(e.fonts.display)}">${esc(e.name)}</span>${e.inspiredBy ? `<span class="pf">${esc(e.inspiredBy.author)}</span>` : ''}</button>`; }).join('')}</div>
             <div class="d-note">${esc(t('pickNote'))}</div>`;
         } else if (tier === 2 && locked.length) {
           $('.pick-box').innerHTML = `<div class="pick-title">✨ ${esc(t('allTitle'))}</div><div class="all-row">${locked.map((x) => `<span title="${esc(IV.getEdition(x.id).name)}">${thumb(x.id, 30)}</span>`).join('')}</div>
@@ -307,7 +307,7 @@
         <label class="field-label">${esc(t('couponCode'))}</label>
         <input class="coupon" autocomplete="off" spellcheck="false" placeholder="WMC-XXXX-XXXX" style="font:700 17px/1 ui-monospace,Menlo,monospace;letter-spacing:.08em;text-transform:uppercase">
         ${locked.length ? `<label class="field-label" style="margin-top:12px">${esc(t('couponPick'))}</label>
-        <select class="pick">${locked.map((s) => { const e = IV.getEdition(s.id); return `<option value="${s.id}"${s.id === lastPick ? ' selected' : ''}>${esc(e.name)}${e.inspiredBy ? ` — ${esc(t('inspiredBy', { book: e.inspiredBy.title }))}` : ''}</option>`; }).join('')}</select>` : ''}
+        <select class="pick">${locked.map((s) => { const e = IV.getEdition(s.id); return `<option value="${s.id}"${s.id === lastPick ? ' selected' : ''}>${esc(e.name)}${e.inspiredBy ? ` — ${esc(t('inspiredBy', { book: e.inspiredBy.author }))}` : ''}</option>`; }).join('')}</select>` : ''}
         <div class="fb-err"></div>
         <p class="d-note">${esc(t('couponSync'))}</p>
         <div class="modal-actions"><button class="btn ghost" data-act="modal-close">${esc(t('cancel'))}</button><button class="btn primary" data-act="coupon-go">${esc(t('couponGo'))}</button></div>`, 'coupon');
@@ -372,7 +372,7 @@
             <div class="cb-art">${ed.emblem}</div>
             <div class="cb-kicker">✦ ${esc(title)} ✦</div>
             <div class="cb-name">${esc(ed.name)}</div>
-            ${ed.inspiredBy ? `<div class="cb-from">${esc(t('inspiredBy', { book: ed.inspiredBy.title }))}</div>` : ''}
+            ${ed.inspiredBy ? `<div class="cb-from">${esc(t('inspiredBy', { book: ed.inspiredBy.author }))}</div>` : ''}
             <p class="cb-body">${esc(body)}</p>
             <div class="cb-actions"><button class="btn ghost" data-act="cb-later">${esc(t('later'))}</button><button class="btn primary" data-act="cb-wear">${esc(t('wearNow'))}</button></div>
           </div>`;

@@ -66,7 +66,7 @@ Points: **install +10 · share +5 per day · each €1 donated +10**.
 > Si te gusta, nos encantaría que lo compartieras. ¡Y si quieres cambiar algo del diseño, lo ajustamos contigo! Puedo darte cupones para regalar a tus lectores.
 
 **Rights, read before contacting anyone:**
-- Skins must stay "inspired by": no covers, logos, character names or quotes.
+- Skins carry the book's title (readers recognise them instantly) but must stay clearly *fan-made, not official*, with original art: no covers, logos, character names or quotes.
 - Once an author is interested, move towards an *official* skin with their written OK. That's a stronger selling point and removes legal risk.
 - Some of these books are now licensed by Netflix, Prime Video, Penguin Random House or Wattpad WEBTOON Studios. Don't use film stills or the films' visual identity, and avoid "official" wording without permission.
 
