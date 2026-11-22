@@ -183,6 +183,7 @@ html.iv-on.iv-bubbles .iv-p.iv-bubble + .iv-p.iv-bubble { margin-top: -.3em !imp
 html.iv-on.iv-bubbles .iv-p.iv-bubble + .iv-p:not(.iv-bubble) { margin-top: .5em !important; }
 html.iv-on[data-reveal="redact"] .iv-p.iv-bubble::after { inset: .5em 1.05em .55em; }
 html.iv-on[data-reveal="rise"].iv-bubbles .iv-p.iv-bubble:not(.is-in) { transform: translateY(14px) scale(.97); }
+html.iv-on[data-para] .iv-p.iv-bubble { text-indent: 0 !important; }
 @media (max-width: 640px) { html.iv-on.iv-bubbles .iv-p.iv-bubble { max-width: 92% !important; } }
 
 /* Scene breaks: keep Wattpad's paragraph (it can carry comments), draw our ornament on top */

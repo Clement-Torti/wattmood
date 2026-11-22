@@ -11,13 +11,25 @@
   if (window.top !== window) return;
   const t = (k, v) => IV.t(k, v);
 
-  /* 1 — paint before Wattpad's first frame */
+  /* 1 — paint before Wattpad's first frame. The page content waits under the skin's background (.wm-pending)
+         until the colour pass has tagged it, so Wattpad's white never shows. */
   const boot = IV.boot.read();
-  if (boot && boot.settings && boot.settings.enabled !== false && IV.editions.has(boot.skin)) {
-    IV.paint(IV.getEdition(boot.skin), { ...IV.DEFAULTS, ...boot.settings }, true);
+  const bootOn = !boot || (boot.settings && boot.settings.enabled !== false);
+  if (bootOn) {
+    const ed = IV.getEdition(boot && IV.editions.has(boot.skin) ? boot.skin : 'classic');
+    IV.paint(ed, { ...IV.DEFAULTS, ...((boot && boot.settings) || {}) }, true);
+    document.documentElement.classList.add('wm-pending', 'wm-boot');
+    IV.hydrated.then(() => setTimeout(() => document.documentElement.classList.remove('wm-boot'), 600));
+    setTimeout(() => document.documentElement.classList.remove('wm-pending'), 2500); // fail-safe: never stay hidden
   }
 
   const domReady = () => (document.readyState === 'loading' ? new Promise((r) => document.addEventListener('DOMContentLoaded', r, { once: true })) : Promise.resolve());
+
+  /* 2 — colour pass as soon as the DOM is parsed (Wattpad's stylesheets are loaded by then), then reveal */
+  domReady().then(() => {
+    if (bootOn) IV.recolor.start();
+    requestAnimationFrame(() => document.documentElement.classList.remove('wm-pending'));
+  });
 
   class App {
     async start() {
@@ -30,7 +42,7 @@
       this.skin = this.resolveSkin();
 
       this.paint();
-      IV.recolor.start();
+      IV.recolor.start(); // no-op if already started at DOMContentLoaded
       IV.community.rememberUser(IV.wattpad.username());
       if (this.meta) {
         this.chapter = new IV.Chapter(this.meta, this.skin);

@@ -22,15 +22,17 @@ window.WMLine = (() => {
     return { data, total };
   }
 
-  /** mine = points just added by this visitor (highlighted at the end of the line). */
+  /** Book ladder: one row per book in goal order. mine = points just added by this visitor (highlighted). */
   function render(el, { data, total, mine = 0, lang = 'en' }) {
     const L = S[lang] || S.en;
     const fmt = (n) => Math.round(n).toLocaleString(lang);
     total = Math.max(total, mine); // the visitor's points are always visible, even before the sheet counts them
-    const skins = data.skins.filter((s) => s.goal > 0);
-    const max = Math.max(1, ...skins.map((s) => s.goal));
+    const skins = data.skins.filter((s) => s.goal > 0).sort((a, b) => a.goal - b.goal);
     const next = skins.find((s) => s.goal > total);
-    const from = pos(total - mine, max), to = pos(total, max);
+    const prev = [...skins].reverse().find((s) => s.goal <= total);
+    const from = prev ? prev.goal : 0;
+    const pct = next ? Math.min(100, ((total - from) / Math.max(1, next.goal - from)) * 100) : 100;
+    const minePct = next ? Math.min(pct, (mine / Math.max(1, next.goal - from)) * 100) : 0;
     const fonts = data.skins.map((s) => s.fonts.google).join('&');
     if (fonts && !document.getElementById('wm-skin-fonts')) {
       const l = document.createElement('link'); l.id = 'wm-skin-fonts'; l.rel = 'stylesheet';
@@ -43,18 +45,21 @@ window.WMLine = (() => {
           ? `<div class="kicker">${esc(L.next.replace(/\s*:?\s*{s}/, ''))}</div><div style="font:400 26px/1.1 ${next.fonts.display};margin-top:6px">${esc(next.name)}</div><div class="note" style="margin:2px 0 0">${esc(L.toGo.replace('{n}', fmt(next.goal - total)))}</div>`
           : `<div class="kicker">${esc(L.all)}</div>`}</div>
       </div>
-      <div class="track">
-        <span class="fill" style="width:0"></span>
-        ${mine ? `<span class="mine" style="left:${from}%;width:0"><em>+${mine} ${esc(L.you)}</em></span>` : ''}
-        ${skins.map((s) => `<span class="mark${total >= s.goal ? ' on' : ''}" style="left:${pos(s.goal, max)}%" title="${esc(s.name)} — ${fmt(s.goal)} pts">
-          <span class="dot">${s.emblem.replace('<svg ', `<svg width="22" height="22" style="color:${s.moods.midnight.accent2};--iv-accent:${s.moods.midnight.accent}" `)}</span>
-          <span class="g">${s.goal >= 1000 ? Math.round(s.goal / 100) / 10 + 'k' : s.goal}</span></span>`).join('')}
-      </div>`;
+      <ol class="ladder">${skins.map((s) => {
+        const m = s.moods.midnight;
+        const isNext = next && s.id === next.id;
+        const st = total >= s.goal ? 'done' : isNext ? 'next' : 'locked';
+        return `<li class="rung is-${st}" style="--b-acc:${m.accent};--b-acc2:${m.accent2}">
+          <span class="ic">${st === 'done' ? '✓' : isNext ? '➜' : '🔒'}</span>
+          <span class="bk"><b style="font-family:${s.fonts.display}">${esc(s.name)}</b>${s.inspiredBy ? `<small>${esc(s.inspiredBy.author)}</small>` : ''}
+            ${isNext ? `<span class="rb"><i style="width:0"></i>${mine ? `<em style="width:0"><span>+${mine} ${esc(L.you)}</span></em>` : ''}</span>` : ''}</span>
+          <span class="gl">${fmt(s.goal)} pts</span></li>`;
+      }).join('')}</ol>`;
     // animate: the community fills first, then the visitor's own points arrive
     requestAnimationFrame(() => requestAnimationFrame(() => {
-      el.querySelector('.fill').style.width = `${from}%`;
-      const m = el.querySelector('.mine');
-      if (m) setTimeout(() => { m.style.width = `${Math.max(to - from, 1.2)}%`; m.classList.add('in'); }, 1300);
+      const bar = el.querySelector('.rb i'), em = el.querySelector('.rb em');
+      if (bar) bar.style.width = `${Math.max(0, pct - minePct)}%`;
+      if (em) setTimeout(() => { em.style.left = `${Math.max(0, pct - minePct)}%`; em.style.width = `${Math.max(minePct, 2)}%`; em.classList.add('in'); }, 900);
     }));
   }
 

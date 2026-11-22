@@ -92,7 +92,14 @@
       this.snap = snap;
       this.$('.pill').innerHTML = IV.renderPointlinePill(snap);
       this.$('.pl-body').innerHTML = IV.renderPointline(snap);
+      this.scrollLadder();
       this.renderSkins();
+    }
+
+    /** Keep the next book in view inside the ladder. */
+    scrollLadder() {
+      const lad = this.$('.pl-ladder'), row = this.$('.pl-row.is-next');
+      if (lad && row) lad.scrollTop = Math.max(0, row.offsetTop - lad.offsetTop - 60);
     }
 
     setProgress(p) {
@@ -455,7 +462,7 @@
           const open = !this.$('.pl').classList.contains('is-open');
           this.$('.pl').classList.toggle('is-open', open);
           btn.setAttribute('aria-expanded', String(open));
-          if (open) app.refreshPoints(false);
+          if (open) { this.scrollLadder(); app.refreshPoints(false); }
         } else if (act === 'share') {
           const r = await IV.community.share();
           this.toast(r === 'counted' ? t('shareCopied') : t('shareLimit'));

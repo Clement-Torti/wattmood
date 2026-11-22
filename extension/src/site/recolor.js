@@ -122,10 +122,25 @@
 
   let mo = null;
   IV.recolor = {
+    /** Starts as soon as the DOM is parsed (attributes don't disturb React hydration). The first pass is synchronous. */
     start() {
       if (running) return;
       running = true;
       collect(document.body);
+      scheduled = false;
+      while (queue.length) process(); // whole page tagged before the next paint
+      addEventListener('load', () => IV.recolor.recheck(), { once: true });
+      // Wattpad's React pages inject CSS from JavaScript after parsing: when a stylesheet arrives (or finishes
+      // loading), re-measure the elements that got no role yet — in the same frame, before it's painted.
+      let soon = 0;
+      const recheckSoon = () => { cancelAnimationFrame(soon); soon = requestAnimationFrame(() => IV.recolor.recheck(true)); };
+      new MutationObserver((recs) => {
+        for (const r of recs) for (const n of r.addedNodes) {
+          if (n.tagName === 'STYLE') recheckSoon();
+          else if (n.tagName === 'LINK' && /stylesheet/i.test(n.rel)) { n.addEventListener('load', recheckSoon, { once: true }); }
+        }
+      }).observe(document.head || document.documentElement, { childList: true, subtree: true });
+      IV.hydrated.then(() => IV.recolor.recheck(true));
       mo = new MutationObserver((records) => {
         for (const rec of records) {
           if (rec.type === 'childList') rec.addedNodes.forEach((n) => n.nodeType === 1 && collect(n));
@@ -139,6 +154,11 @@
         }
       });
       mo.observe(document.body, { childList: true, subtree: true, attributes: true, attributeOldValue: true, attributeFilter: ['class'] });
+    },
+    /** Elements measured before their stylesheet arrived: measure again those that got no role. */
+    recheck(sync) {
+      document.querySelectorAll('[data-wm-c]:not([data-wm-bg]):not([data-wm-fg])').forEach((el) => { delete el.dataset.wmC; queue.push(el); });
+      if (sync) { while (queue.length) process(); } else schedule();
     },
     stop() {
       running = false;

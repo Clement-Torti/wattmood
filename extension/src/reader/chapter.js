@@ -98,10 +98,11 @@
         if (prevDivider) p.classList.add('iv-after-divider');
         prevDivider = false;
 
-        /* Dialogue: typeset speech; a paragraph that OPENS with speech becomes a bubble.
+        /* Dialogue: typeset speech; a paragraph that opens with speech, or holds a real line of speech
+           (≥ 12 characters and ≥ a quarter of the paragraph — not a scare-quoted word), becomes a bubble.
            (No speaker guessing: with names, pronouns and 3+ people it can't be done reliably.) */
         const dlg = markDialogue(p);
-        const bubble = !!(dlg && dlg.leads);
+        const bubble = !!(dlg && (dlg.leads || (dlg.sayChars >= 12 && dlg.ratio >= 0.25)));
         if (bubble) {
           p.classList.add('iv-bubble');
           if (!dlg.narration.replace(/[\s\p{P}]/gu, '')) p.classList.add('is-pure');
@@ -314,7 +315,7 @@
       if (plan.say[i]) sayChars++;
     }
     const firstChar = full.search(/\S/);
-    const stats = { leads: plan.marks.has(firstChar), ratio: total ? sayChars / total : 0, narration: narration.trim() };
+    const stats = { leads: plan.marks.has(firstChar), ratio: total ? sayChars / total : 0, sayChars, narration: narration.trim() };
     let offset = 0;
     for (const node of nodes) {
       const t = node.textContent;
@@ -390,5 +391,6 @@
     return out;
   }
 
+  IV._planDialogue = planDialogue; // exposed for tests
   IV.Chapter = Chapter;
 })();

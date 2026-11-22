@@ -88,24 +88,7 @@
   }
 
   function renderLine() {
-    const L = T[lang];
-    const max = Math.max(1, ...data.skins.map((s) => s.goal || 0));
-    document.getElementById('total').textContent = fmt(total);
-    document.getElementById('fill').style.width = `${pos(total, max)}%`;
-    const track = document.getElementById('track');
-    track.querySelectorAll('.mark').forEach((m) => m.remove());
-    data.skins.filter((s) => s.goal > 0).forEach((s) => {
-      const el = document.createElement('span');
-      el.className = `mark${total >= s.goal ? ' on' : ''}`;
-      el.style.left = `${pos(s.goal, max)}%`;
-      el.title = `${s.name} — ${fmt(s.goal)} pts`;
-      el.innerHTML = `<span class="dot">${svg(s, 22, s.moods.midnight.accent2)}</span><span class="g">${s.goal >= 1000 ? Math.round(s.goal / 100) / 10 + 'k' : s.goal}</span>`;
-      track.appendChild(el);
-    });
-    const next = data.skins.find((s) => s.goal > total);
-    document.getElementById('next').innerHTML = next
-      ? `<div class="kicker">${esc(L.next)}</div><div style="font:400 26px/1.1 ${next.fonts.display};margin-top:6px">${esc(next.name)} <small style="font:600 13px system-ui;color:var(--muted)">· ${fmt(next.goal - total)} pts</small></div>`
-      : `<div class="kicker">${esc(L.allDone)}</div>`;
+    WMLine.render(document.getElementById('wm-line'), { data, total, lang });
   }
 
   // demo: the same chapter in a few skins, cross-fading

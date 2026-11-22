@@ -60,3 +60,8 @@ html.iv-on .iv-atmo > svg { position: absolute; inset: 0; width: 100%; height: 1
 /* WattMood's own floating UI host */
 body:is(.paragraph-comments-drawer-open, .modal-open) ~ #wattmood-ui { display: none !important; }
 body:has(.bottom-banner.show) ~ #wattmood-ui { --iv-safe-bottom: 84px; }
+
+/* first paint: the page waits on the skin's background until the colour pass has run (≤ 2.5 s fail-safe) */
+html.iv-on.wm-pending body { opacity: 0 !important; }
+html.iv-on body { transition: opacity .18s ease-out; }
+html.wm-boot *, html.wm-boot *::before, html.wm-boot *::after { transition: none !important; } /* no fade from Wattpad's white while the skin is applied */

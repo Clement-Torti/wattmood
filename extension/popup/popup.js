@@ -36,6 +36,8 @@
 
   async function render(snap) {
     $('#pl').innerHTML = IV.renderPointline(snap);
+    const lad = $('#pl .pl-ladder'), row = $('#pl .pl-row.is-next');
+    if (lad && row) lad.scrollTop = Math.max(0, row.offsetTop - lad.offsetTop - 60);
     $('#enabled').checked = settings.enabled;
     $('#skins').innerHTML = snap.skins.map((s) => {
       const ed = IV.getEdition(s.id);
