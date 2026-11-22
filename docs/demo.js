@@ -4,10 +4,10 @@
  */
 window.WMDemo = (() => {
   const CAP = {
-    en: ['Wattpad, as you know it', 'One click: the Perfectos Mentirosos skin', 'Fonts, colours and an atmosphere made for the book', 'Dialogue becomes speech bubbles', 'Moods: Night · Candlelight · Day', 'Spotlight: only the paragraph you’re reading', 'Community points unlock new book skins for everyone'],
-    es: ['Wattpad, tal como lo conoces', 'Un clic: la skin de Perfectos Mentirosos', 'Tipografía, colores y una atmósfera hechos para el libro', 'Los diálogos se vuelven burbujas', 'Ambientes: Noche · Vela · Día', 'Foco: solo el párrafo que estás leyendo', 'Los puntos de la comunidad desbloquean nuevas skins para todos'],
-    pt: ['O Wattpad que você conhece', 'Um clique: a skin de Perfectos Mentirosos', 'Fontes, cores e uma atmosfera feitas para o livro', 'Os diálogos viram balões', 'Climas: Noite · Vela · Dia', 'Foco: só o parágrafo que você está lendo', 'Os pontos da comunidade desbloqueiam novas skins para todos'],
-    fr: ['Wattpad, tel que tu le connais', 'Un clic : le skin Perfectos Mentirosos', 'Typo, couleurs et une atmosphère faites pour le livre', 'Les dialogues deviennent des bulles', 'Ambiances : Nuit · Bougie · Jour', 'Focus : seulement le paragraphe que tu lis', 'Les points de la communauté débloquent de nouveaux skins pour tous'],
+    en: ['Wattpad, as you know it', 'One click: the Perfectos Mentirosos skin', 'Fonts, colours and an atmosphere made for the book', 'Focus mode: one centred column, no distractions', 'Dialogue becomes speech bubbles', 'Moods: Night · Candlelight · Day', 'Spotlight: only the paragraph you’re reading', 'Community points unlock new book skins for everyone'],
+    es: ['Wattpad, tal como lo conoces', 'Un clic: la skin de Perfectos Mentirosos', 'Tipografía, colores y una atmósfera hechos para el libro', 'Modo foco: una sola columna centrada, sin distracciones', 'Los diálogos se vuelven burbujas', 'Ambientes: Noche · Vela · Día', 'Foco: solo el párrafo que estás leyendo', 'Los puntos de la comunidad desbloquean nuevas skins para todos'],
+    pt: ['O Wattpad que você conhece', 'Um clique: a skin de Perfectos Mentirosos', 'Fontes, cores e uma atmosfera feitas para o livro', 'Modo foco: uma única coluna centralizada, sem distrações', 'Os diálogos viram balões', 'Climas: Noite · Vela · Dia', 'Foco: só o parágrafo que você está lendo', 'Os pontos da comunidade desbloqueiam novas skins para todos'],
+    fr: ['Wattpad, tel que tu le connais', 'Un clic : le skin Perfectos Mentirosos', 'Typo, couleurs et une atmosphère faites pour le livre', 'Mode focus : une seule colonne centrée, sans distractions', 'Les dialogues deviennent des bulles', 'Ambiances : Nuit · Bougie · Jour', 'Focus : seulement le paragraphe que tu lis', 'Les points de la communauté débloquent de nouveaux skins pour tous'],
   };
   const TXT = {
     en: { ch: 'Chapter', p1: 'Nobody at the academy told the truth. Not the teachers, not the scholarship kids, and certainly not the three brothers who owned every hallway.', b1: '“You’re new,” he said, as if it were an accusation.', b2: '“And you’re lying,” I answered.', p2: 'He smiled the way people smile when they have already decided how the story ends.', pts: 'pts community' },
@@ -28,6 +28,18 @@ window.WMDemo = (() => {
         <div class="dm-page">
           <div class="dm-atmo"></div>
           <div class="dm-header"><b>wattpad</b><span>Browse</span><span>Community</span><span class="dm-search"></span><span class="dm-av"></span></div>
+          <div class="dm-banner"></div>
+          <aside class="dm-lrail">
+            <span class="dm-avatar"></span><b>HonorInTheRain</b><span class="dm-follow">+ Follow</span>
+            <span class="dm-share-t">Share</span>
+            <span class="dm-soc fb">f</span><span class="dm-soc x">𝕏</span><span class="dm-soc pin">P</span><span class="dm-soc tu">t</span>
+          </aside>
+          <aside class="dm-rrail">
+            <span class="dm-ad-t">Advertisement</span>
+            <div class="dm-ad"><b>BLACK FRIDAY</b><span>-50%</span><i>SUBSCRIBE NOW</i></div>
+            <span class="dm-ad-t">You'll also like</span>
+            <div class="dm-sim"><i></i><span></span></div><div class="dm-sim"><i></i><span></span></div><div class="dm-sim"><i></i><span></span></div>
+          </aside>
           <div class="dm-article">
             <div class="dm-seal">${emblem}</div>
             <div class="dm-kicker">${esc(L.ch)} 1</div>
@@ -38,7 +50,7 @@ window.WMDemo = (() => {
             <p class="dm-p">${esc(L.p2)}<em class="dm-c">95</em></p>
           </div>
           <div class="dm-pill">🌍 <b>${total.toLocaleString(lang)}</b> ${esc(L.pts)} <i><s></s></i> <span>A través de mi ventana</span></div>
-          <div class="dm-dock"><span class="dm-mood">◐</span><span>✦</span><span class="dm-spot">◉</span><span>▥</span><span class="dm-pw">⏻</span></div>
+          <div class="dm-dock"><span class="dm-mood">◐</span><span>✦</span><span class="dm-spot">◉</span><span class="dm-focusbtn">▥</span><span class="dm-pw">⏻</span></div>
           <div class="dm-unveil">
             <div class="dm-half l"></div><div class="dm-half r"></div>
             <div class="dm-mask">${emblem}</div><div class="dm-crack"></div>
@@ -78,7 +90,7 @@ window.WMDemo = (() => {
 
     async function loop() {
       while (alive) {
-        set('plain'); page.classList.remove('spot', 'hl-b', 'hl-pill'); pal('midnight');
+        set('plain'); page.classList.remove('spot', 'hl-b', 'hl-pill', 'focus'); pal('midnight');
         browser.classList.remove('pop');
         cursor.style.transition = 'none'; cursor.style.transform = `translate(${browser.clientWidth * 0.6}px, ${browser.clientHeight * 0.7}px)`; void cursor.offsetWidth; cursor.style.transition = '';
         cap(0); await wait(2200);
@@ -86,12 +98,13 @@ window.WMDemo = (() => {
         move('.dm-pop-skin.pm', -30, 0); await wait(900); click(); await wait(250); browser.classList.remove('pop');
         set('unveil'); await wait(2300);
         set('skin'); cap(2); await wait(2800);
-        page.classList.add('hl-b'); cap(3); await wait(2600); page.classList.remove('hl-b');
-        cap(4); move('.dm-mood'); await wait(800); click(); pal('candlelight'); await wait(1500);
+        cap(3); move('.dm-focusbtn'); await wait(800); click(); page.classList.add('focus'); await wait(3000);
+        page.classList.add('hl-b'); cap(4); await wait(2600); page.classList.remove('hl-b');
+        cap(5); move('.dm-mood'); await wait(800); click(); pal('candlelight'); await wait(1500);
         click(); pal('daylight'); await wait(1500); click(); pal('midnight'); await wait(1000);
-        cap(5); move('.dm-spot'); await wait(800); click(); page.classList.add('spot'); await wait(2600);
+        cap(6); move('.dm-spot'); await wait(800); click(); page.classList.add('spot'); await wait(2600);
         click(); page.classList.remove('spot');
-        cap(6); move('.dm-pill', 40, 0); await wait(600); page.classList.add('hl-pill'); await wait(3400);
+        cap(7); move('.dm-pill', 40, 0); await wait(600); page.classList.add('hl-pill'); await wait(3400);
         page.classList.remove('hl-pill');
         page.classList.add('fade'); await wait(600); page.classList.remove('fade');
       }

@@ -176,3 +176,30 @@ footer { padding: 30px 0 50px; border-top: 1px solid var(--line); color: var(--m
 .dm-pop-skin i { width: 16px; height: 16px; border-radius: 50%; background: linear-gradient(135deg, #121417 50%, #d4a35a 50%); }
 .dm-pop-skin.pm { background: #0b090a; border-color: #c9a45c; font-family: 'Cinzel', Georgia, serif; } .dm-pop-skin.pm i { background: linear-gradient(135deg, #0b090a 50%, #c8203d 50%); }
 .dm-pop-skin.lock { opacity: .5; } .dm-pop-skin em { margin-left: auto; font-style: normal; }
+
+/* demo: the real cluttered chapter page, then Focus */
+.dm-banner { height: 70px; background: linear-gradient(120deg, #c9b6a4, #8d7a6b 40%, #5b4b40); opacity: .9; transition: height .8s cubic-bezier(.5,0,.2,1), opacity .8s; }
+.dm-lrail, .dm-rrail { position: absolute; top: 140px; display: flex; flex-direction: column; gap: 9px; font: 11px system-ui, sans-serif; color: #444;
+  transition: transform .9s cubic-bezier(.5,0,.2,1), opacity .7s; }
+.dm-lrail { left: 4%; width: 15%; align-items: center; text-align: center; }
+.dm-rrail { right: 3%; width: 21%; }
+.dm-avatar { width: 46px; height: 46px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #b89a86, #5a463b); }
+.dm-follow { padding: 5px 12px; border: 1px solid #ddd; border-radius: 6px; font-weight: 600; }
+.dm-share-t, .dm-ad-t { color: #888; font-size: 10px; text-transform: uppercase; letter-spacing: .08em; margin-top: 6px; }
+.dm-soc { width: 28px; height: 28px; border-radius: 50%; background: #222; color: #fff; display: grid; place-items: center; font: 700 12px/1 system-ui, sans-serif; }
+.dm-ad { height: 130px; border-radius: 4px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 6px; color: #fff;
+  background: linear-gradient(135deg, #4a2a7a, #1b1240 60%, #d1286a); }
+.dm-ad b { font: 900 18px/1 system-ui, sans-serif; } .dm-ad span { font: 900 30px/1 system-ui, sans-serif; color: #ffd23f; } .dm-ad i { font: 700 9px/1 system-ui; font-style: normal; border: 1px solid #fff; padding: 4px 7px; border-radius: 4px; }
+.dm-sim { display: flex; gap: 8px; align-items: center; } .dm-sim i { width: 34px; height: 50px; border-radius: 3px; background: linear-gradient(160deg, #e6a0a0, #6b3b55); }
+.dm-sim:nth-of-type(odd) i { background: linear-gradient(160deg, #9fc3e6, #2c3e66); } .dm-sim span { flex: 1; height: 8px; border-radius: 4px; background: #e4e4e4; }
+/* text column: off-centre like Wattpad, then centred in Focus */
+.dm-page .dm-article { margin-left: 23%; transition: margin-left .9s cubic-bezier(.5,0,.2,1), width .9s; width: 46%; padding-top: 18px; }
+.dm-page.focus .dm-article { margin-left: calc((100% - 46%) / 2); }
+.dm-page.focus .dm-lrail { transform: translateX(-140%); opacity: 0; }
+.dm-page.focus .dm-rrail { transform: translateX(140%); opacity: 0; }
+.dm-page.focus .dm-banner { height: 0; opacity: 0; }
+/* skinned page keeps the clutter readable on dark until Focus clears it */
+.dm-page[data-state="skin"] .dm-lrail, .dm-page[data-state="skin"] .dm-rrail { color: var(--d-muted); }
+.dm-page[data-state="skin"] .dm-follow { border-color: var(--d-line); }
+.dm-page[data-state="skin"] .dm-sim span { background: color-mix(in srgb, var(--d-text) 12%, transparent); }
+.dm-page[data-state="skin"] .dm-banner { filter: brightness(.45) saturate(.8); }
